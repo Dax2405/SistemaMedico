@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.AutenticacionFacialDTO;
 import Framework.PoliSaludException;
 
-public class AutenticacionFacialDAO extends SQLiteDataHelper implements IDAO<AutenticacionFacialDTO> {
+public class AutenticacionFacialDAO extends MySQLDataHelper implements IDAO<AutenticacionFacialDTO> {
     @Override
     public AutenticacionFacialDTO readBy(Integer id) throws Exception {
         AutenticacionFacialDTO oS = new AutenticacionFacialDTO();

@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.FacturaDTO;
 import Framework.PoliSaludException;
 
-public class FacturaDAO extends SQLiteDataHelper implements IDAO<FacturaDTO> {
+public class FacturaDAO extends MySQLDataHelper implements IDAO<FacturaDTO> {
     @Override
     public FacturaDTO readBy(Integer id) throws Exception {
         FacturaDTO oS = new FacturaDTO();

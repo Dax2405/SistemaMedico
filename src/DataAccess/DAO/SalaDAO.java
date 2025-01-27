@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.SalaDTO;
 import Framework.PoliSaludException;
 
-public class SalaDAO extends SQLiteDataHelper implements IDAO<SalaDTO> {
+public class SalaDAO extends MySQLDataHelper implements IDAO<SalaDTO> {
     @Override
     public SalaDTO readBy(Integer id) throws Exception {
         SalaDTO oS = new SalaDTO();

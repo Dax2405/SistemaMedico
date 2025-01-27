@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.TurnoDTO;
 import Framework.PoliSaludException;
 
-public class TurnoDAO extends SQLiteDataHelper implements IDAO<TurnoDTO> {
+public class TurnoDAO extends MySQLDataHelper implements IDAO<TurnoDTO> {
     @Override
     public TurnoDTO readBy(Integer id) throws Exception {
         TurnoDTO oS = new TurnoDTO();

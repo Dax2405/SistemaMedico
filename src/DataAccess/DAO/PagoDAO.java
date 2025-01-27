@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.PagoDTO;
 import Framework.PoliSaludException;
 
-public class PagoDAO extends SQLiteDataHelper implements IDAO<PagoDTO> {
+public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
     @Override
     public PagoDTO readBy(Integer id) throws Exception {
         PagoDTO oS = new PagoDTO();

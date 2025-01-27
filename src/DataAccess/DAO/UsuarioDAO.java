@@ -9,11 +9,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.SQLiteDataHelper;
+import DataAccess.MySQLDataHelper;
 import DataAccess.DTO.UsuarioDTO;
 import Framework.PoliSaludException;
 
-public class UsuarioDAO extends SQLiteDataHelper implements IDAO<UsuarioDTO> {
+public class UsuarioDAO extends MySQLDataHelper implements IDAO<UsuarioDTO> {
     @Override
     public UsuarioDTO readBy(Integer id) throws Exception {
         UsuarioDTO oS = new UsuarioDTO();
