@@ -17,7 +17,6 @@ DROP TABLE IF EXISTS paciente;
 DROP TABLE IF EXISTS usuario;
 DROP TABLE IF EXISTS autenticacion_facial;
 DROP TABLE IF EXISTS autenticacion_otp;
-
 CREATE TABLE usuario (
     id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE NOT NULL,
@@ -27,7 +26,6 @@ CREATE TABLE usuario (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE paciente (
     id_paciente INTEGER PRIMARY KEY AUTOINCREMENT,
     id_usuario INTEGER NOT NULL,
@@ -42,7 +40,6 @@ CREATE TABLE paciente (
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
-
 CREATE TABLE medico (
     id_medico INTEGER PRIMARY KEY AUTOINCREMENT,
     id_usuario INTEGER NOT NULL,
@@ -58,7 +55,6 @@ CREATE TABLE medico (
     FOREIGN KEY (id_medico_especialidad) REFERENCES medico_especialidad(id_medico_especialidad),
     FOREIGN KEY (id_medico_rol) REFERENCES medico_rol(id_medico_rol)
 );
-
 CREATE TABLE autenticacion_facial (
     id_autenticacion INTEGER PRIMARY KEY AUTOINCREMENT,
     id_usuario INTEGER NOT NULL,
@@ -66,7 +62,6 @@ CREATE TABLE autenticacion_facial (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
-
 CREATE TABLE autenticacion_otp (
     id_autenticacion INTEGER PRIMARY KEY AUTOINCREMENT,
     id_usuario INTEGER NOT NULL,
@@ -75,7 +70,6 @@ CREATE TABLE autenticacion_otp (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES usuario(id_usuario)
 );
-
 CREATE TABLE medico_especialidad (
     id_medico_especialidad INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_especialidad TEXT UNIQUE NOT NULL,
@@ -83,7 +77,6 @@ CREATE TABLE medico_especialidad (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE medico_rol (
     id_medico_rol INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_rol TEXT UNIQUE NOT NULL,
@@ -91,7 +84,6 @@ CREATE TABLE medico_rol (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE paciente_historia_clinica (
     id_paciente_historia_clinica INTEGER PRIMARY KEY AUTOINCREMENT,
     id_paciente INTEGER NOT NULL,
@@ -104,7 +96,6 @@ CREATE TABLE paciente_historia_clinica (
     FOREIGN KEY (id_paciente) REFERENCES paciente(id_paciente),
     FOREIGN KEY (id_medico) REFERENCES medico(id_medico)
 );
-
 CREATE TABLE receta_medica (
     id_receta_medica INTEGER PRIMARY KEY AUTOINCREMENT,
     id_turno INTEGER NOT NULL,
@@ -114,7 +105,6 @@ CREATE TABLE receta_medica (
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_turno) REFERENCES turno(id_turno)
 );
-
 CREATE TABLE medicamento_recetado (
     id_medicamento_recetado INTEGER PRIMARY KEY AUTOINCREMENT,
     id_receta_medica INTEGER NOT NULL,
@@ -125,7 +115,6 @@ CREATE TABLE medicamento_recetado (
     FOREIGN KEY (id_receta_medica) REFERENCES receta_medica(id_receta_medica),
     FOREIGN KEY (id_medicamento) REFERENCES medicamento(id_medicamento)
 );
-
 CREATE TABLE medicamento (
     id_medicamento INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_comercial TEXT NOT NULL,
@@ -137,7 +126,6 @@ CREATE TABLE medicamento (
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_medicamento_tipo) REFERENCES medicamento_tipo(id_medicamento_tipo)
 );
-
 CREATE TABLE medicamento_tipo (
     id_medicamento_tipo INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_tipo TEXT UNIQUE NOT NULL,
@@ -145,7 +133,6 @@ CREATE TABLE medicamento_tipo (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE factura (
     id_factura INTEGER PRIMARY KEY AUTOINCREMENT,
     id_turno INTEGER NOT NULL,
@@ -156,7 +143,6 @@ CREATE TABLE factura (
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_turno) REFERENCES turno(id_turno)
 );
-
 CREATE TABLE turno (
     id_turno INTEGER PRIMARY KEY AUTOINCREMENT,
     id_paciente INTEGER NOT NULL,
@@ -172,7 +158,6 @@ CREATE TABLE turno (
     FOREIGN KEY (id_sala) REFERENCES sala(id_sala),
     FOREIGN KEY (id_turno_estado) REFERENCES turno_estado(id_turno_estado)
 );
-
 CREATE TABLE turno_estado (
     id_turno_estado INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_estado TEXT UNIQUE NOT NULL,
@@ -180,7 +165,6 @@ CREATE TABLE turno_estado (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE pago (
     id_pago INTEGER PRIMARY KEY AUTOINCREMENT,
     id_factura INTEGER NOT NULL,
@@ -191,7 +175,6 @@ CREATE TABLE pago (
     FOREIGN KEY (id_factura) REFERENCES factura(id_factura),
     FOREIGN KEY (id_pago_metodo) REFERENCES pago_metodo(id_pago_metodo)
 );
-
 CREATE TABLE pago_metodo (
     id_pago_metodo INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_metodo TEXT UNIQUE NOT NULL,
@@ -199,7 +182,6 @@ CREATE TABLE pago_metodo (
     fecha_crea DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_modifica DATETIME DEFAULT CURRENT_TIMESTAMP
 );
-
 CREATE TABLE sala (
     id_sala INTEGER PRIMARY KEY AUTOINCREMENT,
     numero_sala INTEGER UNIQUE NOT NULL,
