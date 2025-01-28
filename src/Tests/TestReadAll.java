@@ -1,4 +1,4 @@
-package Test;
+package Tests;
 
 import DataAccess.DAO.*;
 import DataAccess.DTO.*;
@@ -27,65 +27,67 @@ public class TestReadAll {
             AutenticacionFacialDAO autenticacionFacialDAO = new AutenticacionFacialDAO();
             AutenticacionOTPDAO autenticacionOTPDAO = new AutenticacionOTPDAO();
 
-            List<PacienteDTO> pacientes = pacienteDAO.readAll();
-            System.out.println("Pacientes:");
-            for (PacienteDTO paciente : pacientes) {
-                System.out.println(paciente);
-            }
+            // List<PacienteDTO> pacientes = pacienteDAO.readAll();
+            // System.out.println("Pacientes:");
+            // for (PacienteDTO paciente : pacientes) {
+            // System.out.println(paciente);
+            // }
 
-            List<MedicoEspecialidadDTO> especialidades = medicoEspecialidadDAO.readAll();
-            System.out.println("Especialidades Médicas:");
-            for (MedicoEspecialidadDTO especialidad : especialidades) {
-                System.out.println(especialidad);
-            }
+            // List<MedicoEspecialidadDTO> especialidades = medicoEspecialidadDAO.readAll();
+            // System.out.println("Especialidades Médicas:");
+            // for (MedicoEspecialidadDTO especialidad : especialidades) {
+            // System.out.println(especialidad);
+            // }
 
-            List<MedicoRolDTO> roles = medicoRolDAO.readAll();
-            System.out.println("Roles Médicos:");
-            for (MedicoRolDTO rol : roles) {
-                System.out.println(rol);
-            }
+            // List<MedicoRolDTO> roles = medicoRolDAO.readAll();
+            // System.out.println("Roles Médicos:");
+            // for (MedicoRolDTO rol : roles) {
+            // System.out.println(rol);
+            // }
 
-            List<MedicoDTO> medicos = medicoDAO.readAll();
-            System.out.println("Médicos:");
-            for (MedicoDTO medico : medicos) {
-                System.out.println(medico);
-            }
+            // List<MedicoDTO> medicos = medicoDAO.readAll();
+            // System.out.println("Médicos:");
+            // for (MedicoDTO medico : medicos) {
+            // System.out.println(medico);
+            // }
 
-            List<PacienteHistoriaClinicaDTO> historiasClinicas = pacienteHistoriaClinicaDAO.readAll();
-            System.out.println("Historias Clínicas de Pacientes:");
-            for (PacienteHistoriaClinicaDTO historiaClinica : historiasClinicas) {
-                System.out.println(historiaClinica);
-            }
+            // List<PacienteHistoriaClinicaDTO> historiasClinicas =
+            // pacienteHistoriaClinicaDAO.readAll();
+            // System.out.println("Historias Clínicas de Pacientes:");
+            // for (PacienteHistoriaClinicaDTO historiaClinica : historiasClinicas) {
+            // System.out.println(historiaClinica);
+            // }
 
-            List<RecetaMedicaDTO> recetasMedicas = recetaMedicaDAO.readAll();
-            System.out.println("Recetas Médicas:");
-            for (RecetaMedicaDTO recetaMedica : recetasMedicas) {
-                System.out.println(recetaMedica);
-            }
+            // List<RecetaMedicaDTO> recetasMedicas = recetaMedicaDAO.readAll();
+            // System.out.println("Recetas Médicas:");
+            // for (RecetaMedicaDTO recetaMedica : recetasMedicas) {
+            // System.out.println(recetaMedica);
+            // }
 
-            List<MedicamentoRecetadoDTO> medicamentosRecetados = medicamentoRecetadoDAO.readAll();
-            System.out.println("Medicamentos Recetados:");
-            for (MedicamentoRecetadoDTO medicamentoRecetado : medicamentosRecetados) {
-                System.out.println(medicamentoRecetado);
-            }
+            // List<MedicamentoRecetadoDTO> medicamentosRecetados =
+            // medicamentoRecetadoDAO.readAll();
+            // System.out.println("Medicamentos Recetados:");
+            // for (MedicamentoRecetadoDTO medicamentoRecetado : medicamentosRecetados) {
+            // System.out.println(medicamentoRecetado);
+            // }
 
-            List<MedicamentoTipoDTO> tiposMedicamentos = medicamentoTipoDAO.readAll();
-            System.out.println("Tipos de Medicamentos:");
-            for (MedicamentoTipoDTO tipoMedicamento : tiposMedicamentos) {
-                System.out.println(tipoMedicamento);
-            }
+            // List<MedicamentoTipoDTO> tiposMedicamentos = medicamentoTipoDAO.readAll();
+            // System.out.println("Tipos de Medicamentos:");
+            // for (MedicamentoTipoDTO tipoMedicamento : tiposMedicamentos) {
+            // System.out.println(tipoMedicamento);
+            // }
 
-            List<MedicamentoDTO> medicamentos = medicamentoDAO.readAll();
-            System.out.println("Medicamentos:");
-            for (MedicamentoDTO medicamento : medicamentos) {
-                System.out.println(medicamento);
-            }
+            // List<MedicamentoDTO> medicamentos = medicamentoDAO.readAll();
+            // System.out.println("Medicamentos:");
+            // for (MedicamentoDTO medicamento : medicamentos) {
+            // System.out.println(medicamento);
+            // }
 
-            List<FacturaDTO> facturas = facturaDAO.readAll();
-            System.out.println("Facturas:");
-            for (FacturaDTO factura : facturas) {
-                System.out.println(factura);
-            }
+            // List<FacturaDTO> facturas = facturaDAO.readAll();
+            // System.out.println("Facturas:");
+            // for (FacturaDTO factura : facturas) {
+            // System.out.println(factura);
+            // }
 
             List<PagoDTO> pagos = pagoDAO.readAll();
             System.out.println("Pagos:");
