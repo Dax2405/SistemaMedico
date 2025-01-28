@@ -14,7 +14,7 @@ public class MedicamentoDTO {
     }
 
     public MedicamentoDTO(Integer idMedicamento, String nombreComercial, String nombreQuimico, Float concentracion,
-            Integer idMedicamentoTipo, String estado, String fechaCrea, String fechaModifica) {
+                          Integer idMedicamentoTipo, String estado, String fechaCrea, String fechaModifica) {
         this.idMedicamento = idMedicamento;
         this.nombreComercial = nombreComercial;
         this.nombreQuimico = nombreQuimico;

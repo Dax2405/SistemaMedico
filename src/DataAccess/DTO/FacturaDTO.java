@@ -13,7 +13,7 @@ public class FacturaDTO {
     }
 
     public FacturaDTO(Integer idFactura, Integer idTurno, Float montoTotal, String estadoPago, String estado,
-            String fechaCrea, String fechaModifica) {
+                      String fechaCrea, String fechaModifica) {
         this.idFactura = idFactura;
         this.idTurno = idTurno;
         this.montoTotal = montoTotal;

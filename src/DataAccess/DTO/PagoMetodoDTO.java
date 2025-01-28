@@ -11,7 +11,7 @@ public class PagoMetodoDTO {
     }
 
     public PagoMetodoDTO(Integer idPagoMetodo, String nombreMetodo, String estado, String fechaCrea,
-            String fechaModifica) {
+                         String fechaModifica) {
         this.idPagoMetodo = idPagoMetodo;
         this.nombreMetodo = nombreMetodo;
         this.estado = estado;

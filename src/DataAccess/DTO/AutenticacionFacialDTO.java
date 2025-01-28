@@ -10,7 +10,7 @@ public class AutenticacionFacialDTO {
     }
 
     public AutenticacionFacialDTO(Integer idAutenticacion, Integer idUsuario, byte[] encodingFacial,
-            String fechaCrea) {
+                                  String fechaCrea) {
         this.idAutenticacion = idAutenticacion;
         this.idUsuario = idUsuario;
         this.encodingFacial = encodingFacial;

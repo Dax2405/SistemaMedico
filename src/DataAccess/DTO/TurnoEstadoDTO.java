@@ -11,7 +11,7 @@ public class TurnoEstadoDTO {
     }
 
     public TurnoEstadoDTO(Integer idTurnoEstado, String nombreEstado, String estado, String fechaCrea,
-            String fechaModifica) {
+                          String fechaModifica) {
         this.idTurnoEstado = idTurnoEstado;
         this.nombreEstado = nombreEstado;
         this.estado = estado;

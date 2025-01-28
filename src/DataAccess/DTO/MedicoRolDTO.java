@@ -11,8 +11,8 @@ public class MedicoRolDTO {
     }
 
     public MedicoRolDTO(Integer idMedicoRol, String nombreRol, String estado,
-            String fechaCrea,
-            String fechaModifica) {
+                        String fechaCrea,
+                        String fechaModifica) {
         this.idMedicoRol = idMedicoRol;
         this.nombreRol = nombreRol;
         this.estado = estado;
