@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.PacienteHistoriaClinicaDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.PacienteHistoriaClinicaDTO;
-import Framework.PoliSaludException;
 
 public class PacienteHistoriaClinicaDAO extends MySQLDataHelper implements IDAO<PacienteHistoriaClinicaDTO> {
     @Override
@@ -161,4 +158,43 @@ public class PacienteHistoriaClinicaDAO extends MySQLDataHelper implements IDAO<
         }
         return 0;
     }
+
+    public List<PacienteHistoriaClinicaDTO> readAllByPacienteId(Integer idPaciente) throws Exception {
+        List<PacienteHistoriaClinicaDTO> lst = new ArrayList<>();
+        String query = " SELECT "
+                + "  id_paciente_historia_clinica "
+                + " ,id_paciente "
+                + " ,diagnostico "
+                + " ,tratamiento "
+                + " ,id_medico "
+                + " ,estado "
+                + " ,fecha_crea "
+                + " ,fecha_modifica "
+                + " FROM paciente_historia_clinica "
+                + " WHERE estado='A'"
+                + " AND id_paciente = " + idPaciente.toString();
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la
+            while (rs.next()) {
+                PacienteHistoriaClinicaDTO s = new PacienteHistoriaClinicaDTO(
+                        rs.getInt(1), // id_paciente_historia_clinica
+                        rs.getInt(2), // id_paciente
+                        rs.getString(3), // diagnostico
+                        rs.getString(4), // tratamiento
+                        rs.getInt(5), // id_medico
+                        rs.getString(6), // estado
+                        rs.getString(7), // fecha_crea
+                        rs.getString(8) // fecha_modifica
+                );
+                lst.add(s);
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readAll()");
+        }
+        return lst;
+    }
+
 }
