@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.MedicoDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.MedicoDTO;
-import Framework.PoliSaludException;
 
 public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
     @Override
@@ -42,8 +39,8 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
                         rs.getString(3), // nombre
                         rs.getString(4), // apellido
                         rs.getString(5), // telefono
-                        rs.getString(6), // id_medico_especialidad
-                        rs.getString(7), // id_medico_rol
+                        rs.getInt(6), // id_medico_especialidad
+                        rs.getInt(7), // id_medico_rol
                         rs.getString(8), // estado
                         rs.getString(9), // fecha_crea
                         rs.getString(10) // fecha_modifica
@@ -83,8 +80,8 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
                         rs.getString(3), // nombre
                         rs.getString(4), // apellido
                         rs.getString(5), // telefono
-                        rs.getString(6), // id_medico_especialidad
-                        rs.getString(7), // id_medico_rol
+                        rs.getInt(6), // id_medico_especialidad
+                        rs.getInt(7), // id_medico_rol
                         rs.getString(8), // estado
                         rs.getString(9), // fecha_crea
                         rs.getString(10) // fecha_modifica
@@ -115,8 +112,8 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
             pstmt.setString(2, entity.getNombre());
             pstmt.setString(3, entity.getApellido());
             pstmt.setString(4, entity.getTelefono());
-            pstmt.setString(5, entity.getIdMedicoEspecialidad());
-            pstmt.setString(6, entity.getIdMedicoRol());
+            pstmt.setInt(5, entity.getIdMedicoEspecialidad());
+            pstmt.setInt(6, entity.getIdMedicoRol());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -136,8 +133,8 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
             pstmt.setString(2, entity.getNombre());
             pstmt.setString(3, entity.getApellido());
             pstmt.setString(4, entity.getTelefono());
-            pstmt.setString(5, entity.getIdMedicoEspecialidad());
-            pstmt.setString(6, entity.getIdMedicoRol());
+            pstmt.setInt(5, entity.getIdMedicoEspecialidad());
+            pstmt.setInt(6, entity.getIdMedicoRol());
             pstmt.setString(7, dtf.format(now).toString());
             pstmt.setInt(8, entity.getIdMedico());
             pstmt.executeUpdate();
@@ -177,4 +174,86 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
         }
         return 0;
     }
+
+    public List<MedicoDTO> readAllByEspecialidadId(Integer idEspecialidad) throws Exception {
+        List<MedicoDTO> lst = new ArrayList<>();
+        String query = " SELECT "
+                + "  id_medico    "
+                + " ,id_usuario   "
+                + " ,nombre        "
+                + " ,apellido      "
+                + " ,telefono      "
+                + " ,id_medico_especialidad "
+                + " ,id_medico_rol "
+                + " ,estado        "
+                + " ,fecha_crea    "
+                + " ,fecha_modifica"
+                + " FROM medico "
+                + " WHERE estado='A'" + " AND id_medico_especialidad = " + idEspecialidad.toString();
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                MedicoDTO s = new MedicoDTO(
+                        rs.getInt(1), // id_medico
+                        rs.getInt(2), // id_usuario
+                        rs.getString(3), // nombre
+                        rs.getString(4), // apellido
+                        rs.getString(5), // telefono
+                        rs.getInt(6), // id_medico_especialidad
+                        rs.getInt(7), // id_medico_rol
+                        rs.getString(8), // estado
+                        rs.getString(9), // fecha_crea
+                        rs.getString(10) // fecha_modifica
+                );
+                lst.add(s);
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readAll()");
+        }
+        return lst;
+    }
+
+    public MedicoDTO readByUsuarioId(Integer id) throws Exception {
+        MedicoDTO oS = new MedicoDTO();
+        String query = " SELECT "
+                + "  id_medico    "
+                + " ,id_usuario   "
+                + " ,nombre        "
+                + " ,apellido      "
+                + " ,telefono      "
+                + " ,id_medico_especialidad "
+                + " ,id_medico_rol "
+                + " ,estado        "
+                + " ,fecha_crea    "
+                + " ,fecha_modifica"
+                + " FROM medico "
+                + " WHERE estado='A' AND id_usuario = " + id.toString();
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                oS = new MedicoDTO(
+                        rs.getInt(1), // id_medico
+                        rs.getInt(2), // id_usuario
+                        rs.getString(3), // nombre
+                        rs.getString(4), // apellido
+                        rs.getString(5), // telefono
+                        rs.getInt(6), // id_medico_especialidad
+                        rs.getInt(7), // id_medico_rol
+                        rs.getString(8), // estado
+                        rs.getString(9), // fecha_crea
+                        rs.getString(10) // fecha_modifica
+                );
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readBy()");
+        }
+        return oS;
+    }
+
 }
