@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.TurnoDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.TurnoDTO;
-import Framework.PoliSaludException;
 
 public class TurnoDAO extends MySQLDataHelper implements IDAO<TurnoDTO> {
     @Override
@@ -104,13 +101,18 @@ public class TurnoDAO extends MySQLDataHelper implements IDAO<TurnoDTO> {
                 + ") VALUES (?, ?, ?, ?, ?)";
         try {
             Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, entity.getIdPaciente());
             pstmt.setInt(2, entity.getIdMedico());
             pstmt.setInt(3, entity.getIdSala());
             pstmt.setString(4, entity.getFechaTurno());
             pstmt.setInt(5, entity.getIdTurnoEstado());
             pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                entity.setIdTurno(rs.getInt(1));
+            }
             return true;
         } catch (SQLException e) {
             throw new PoliSaludException(e.getMessage(), getClass().getName(), "create()");
@@ -167,5 +169,84 @@ public class TurnoDAO extends MySQLDataHelper implements IDAO<TurnoDTO> {
             throw new PoliSaludException(e.getMessage(), getClass().getName(), "getMaxRow()");
         }
         return 0;
+    }
+
+    public List<TurnoDTO> readByPacienteId(Integer idPaciente) throws Exception {
+        List<TurnoDTO> lst = new ArrayList<>();
+        String query = " SELECT "
+                + "  id_turno    "
+                + " ,id_paciente "
+                + " ,id_medico   "
+                + " ,id_sala     "
+                + " ,fecha_turno "
+                + " ,id_turno_estado "
+                + " ,estado      "
+                + " ,fecha_crea  "
+                + " ,fecha_modifica"
+                + " FROM turno "
+                + " WHERE estado='A' AND id_paciente = " + idPaciente.toString();
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                TurnoDTO s = new TurnoDTO(
+                        rs.getInt(1), // id_turno
+                        rs.getInt(2), // id_paciente
+                        rs.getInt(3), // id_medico
+                        rs.getInt(4), // id_sala
+                        rs.getString(5), // fecha_turno
+                        rs.getInt(6), // id_turno_estado
+                        rs.getString(7), // estado
+                        rs.getString(8), // fecha_crea
+                        rs.getString(9) // fecha_modifica
+                );
+                lst.add(s);
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readAll()");
+        }
+        return lst;
+    }
+
+    public List<TurnoDTO> readByPacienteAndMedicoId(Integer idPaciente, Integer idMedico) throws Exception {
+        List<TurnoDTO> lst = new ArrayList<>();
+        String query = " SELECT "
+                + "  id_turno    "
+                + " ,id_paciente "
+                + " ,id_medico   "
+                + " ,id_sala     "
+                + " ,fecha_turno "
+                + " ,id_turno_estado "
+                + " ,estado      "
+                + " ,fecha_crea  "
+                + " ,fecha_modifica"
+                + " FROM turno "
+                + " WHERE estado='A' AND id_paciente = " + idPaciente.toString()
+                + " AND id_medico = " + idMedico.toString();
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                TurnoDTO s = new TurnoDTO(
+                        rs.getInt(1), // id_turno
+                        rs.getInt(2), // id_paciente
+                        rs.getInt(3), // id_medico
+                        rs.getInt(4), // id_sala
+                        rs.getString(5), // fecha_turno
+                        rs.getInt(6), // id_turno_estado
+                        rs.getString(7), // estado
+                        rs.getString(8), // fecha_crea
+                        rs.getString(9) // fecha_modifica
+                );
+                lst.add(s);
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readAll()");
+        }
+        return lst;
     }
 }
