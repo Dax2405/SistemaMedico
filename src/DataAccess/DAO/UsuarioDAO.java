@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.UsuarioDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.UsuarioDTO;
-import Framework.PoliSaludException;
 
 public class UsuarioDAO extends MySQLDataHelper implements IDAO<UsuarioDTO> {
     @Override
@@ -94,11 +91,15 @@ public class UsuarioDAO extends MySQLDataHelper implements IDAO<UsuarioDTO> {
                 + ") VALUES (?, ?, ?)";
         try {
             Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, entity.getEmail());
             pstmt.setString(2, entity.getContrasena());
             pstmt.setString(3, entity.getTipoUsuario());
             pstmt.executeUpdate();
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                entity.setIdUsuario(rs.getInt(1));
+            }
             return true;
         } catch (SQLException e) {
             throw new PoliSaludException(e.getMessage(), getClass().getName(), "create()");
@@ -153,5 +154,73 @@ public class UsuarioDAO extends MySQLDataHelper implements IDAO<UsuarioDTO> {
             throw new PoliSaludException(e.getMessage(), getClass().getName(), "getMaxRow()");
         }
         return 0;
+    }
+
+    public UsuarioDTO login(String email, String contrasena) throws Exception {
+        UsuarioDTO oS = new UsuarioDTO();
+        String query = " SELECT "
+                + "  id_usuario    "
+                + " ,email         "
+                + " ,contrasena    "
+                + " ,tipo_usuario  "
+                + " ,estado        "
+                + " ,fecha_crea    "
+                + " ,fecha_modifica"
+                + " FROM usuario "
+                + " WHERE estado='A' AND email = '" + email + "' AND contrasena = '" + contrasena + "'";
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                oS = new UsuarioDTO(
+                        rs.getInt(1), // id_usuario
+                        rs.getString(2), // email
+                        rs.getString(3), // contrasena
+                        rs.getString(4), // tipo_usuario
+                        rs.getString(5), // estado
+                        rs.getString(6), // fecha_crea
+                        rs.getString(7) // fecha_modifica
+                );
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), UsuarioDAO.class.getName(), "login()");
+        }
+        return oS;
+    }
+
+    public UsuarioDTO readByEmail(String email) throws Exception {
+        UsuarioDTO oS = new UsuarioDTO();
+        String query = " SELECT "
+                + "  id_usuario    "
+                + " ,email         "
+                + " ,contrasena    "
+                + " ,tipo_usuario  "
+                + " ,estado        "
+                + " ,fecha_crea    "
+                + " ,fecha_modifica"
+                + " FROM usuario "
+                + " WHERE estado='A' AND email = '" + email + "'";
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            Statement stmt = conn.createStatement(); // CRUD : select * ...
+            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            while (rs.next()) {
+                oS = new UsuarioDTO(
+                        rs.getInt(1), // id_usuario
+                        rs.getString(2), // email
+                        rs.getString(3), // contrasena
+                        rs.getString(4), // tipo_usuario
+                        rs.getString(5), // estado
+                        rs.getString(6), // fecha_crea
+                        rs.getString(7) // fecha_modifica
+                );
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readBy()");
+        }
+        return oS;
     }
 }
