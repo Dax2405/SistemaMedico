@@ -11,8 +11,8 @@ public class MedicamentoTipoDTO {
     }
 
     public MedicamentoTipoDTO(Integer idMedicamentoTipo, String nombreTipo, String estado,
-            String fechaCrea,
-            String fechaModifica) {
+                              String fechaCrea,
+                              String fechaModifica) {
         this.idMedicamentoTipo = idMedicamentoTipo;
         this.nombreTipo = nombreTipo;
         this.estado = estado;
