@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.PagoDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.PagoDTO;
-import Framework.PoliSaludException;
 
 public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
     @Override
@@ -20,6 +17,7 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
         String query = " SELECT "
                 + "  id_pago    "
                 + " ,id_factura "
+                + " ,id_pago_metodo "
                 + " ,estado     "
                 + " ,fecha_crea "
                 + " ,fecha_modifica"
@@ -34,9 +32,10 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
                 oS = new PagoDTO(
                         rs.getInt(1), // id_pago
                         rs.getInt(2), // id_factura
-                        rs.getString(3), // estado
-                        rs.getString(4), // fecha_crea
-                        rs.getString(5) // fecha_modifica
+                        rs.getInt(3), // id_pago_metodo
+                        rs.getString(4), // estado
+                        rs.getString(5), // fecha_crea
+                        rs.getString(6) // fecha_modifica
                 );
             }
         } catch (SQLException e) {
@@ -51,6 +50,7 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
         String query = " SELECT "
                 + "  id_pago    "
                 + " ,id_factura "
+                + " ,id_pago_metodo "
                 + " ,estado     "
                 + " ,fecha_crea "
                 + " ,fecha_modifica"
@@ -65,9 +65,10 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
                 PagoDTO s = new PagoDTO(
                         rs.getInt(1), // id_pago
                         rs.getInt(2), // id_factura
-                        rs.getString(3), // estado
-                        rs.getString(4), // fecha_crea
-                        rs.getString(5) // fecha_modifica
+                        rs.getInt(3), // id_pago_metodo
+                        rs.getString(4), // estado
+                        rs.getString(5), // fecha_crea
+                        rs.getString(6) // fecha_modifica
                 );
                 lst.add(s);
             }
@@ -80,12 +81,13 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
     @Override
     public boolean create(PagoDTO entity) throws Exception {
         String query = " INSERT INTO pago ("
-                + "id_factura"
-                + ") VALUES (?)";
+                + "id_factura, id_pago_metodo"
+                + ") VALUES (?, ?)";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, entity.getIdFactura());
+            pstmt.setInt(2, entity.getIdPagoMetodo());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -97,13 +99,14 @@ public class PagoDAO extends MySQLDataHelper implements IDAO<PagoDTO> {
     public boolean update(PagoDTO entity) throws Exception {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String query = " UPDATE pago SET id_factura = ?, fecha_modifica = ? WHERE id_pago = ?";
+        String query = " UPDATE pago SET id_factura = ?, id_pago_metodo = ?, fecha_modifica = ? WHERE id_pago = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);
             pstmt.setInt(1, entity.getIdFactura());
-            pstmt.setString(2, dtf.format(now).toString());
-            pstmt.setInt(3, entity.getIdPago());
+            pstmt.setInt(2, entity.getIdPagoMetodo());
+            pstmt.setString(3, dtf.format(now).toString());
+            pstmt.setInt(4, entity.getIdPago());
             pstmt.executeUpdate();
             return true;
         } catch (SQLException e) {
