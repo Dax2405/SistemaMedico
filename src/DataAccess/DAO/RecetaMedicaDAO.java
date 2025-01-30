@@ -1,17 +1,14 @@
 package DataAccess.DAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import DataAccess.DTO.RecetaMedicaDTO;
+import DataAccess.MySQLDataHelper;
+import Framework.PoliSaludException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import DataAccess.MySQLDataHelper;
-import DataAccess.DTO.RecetaMedicaDTO;
-import Framework.PoliSaludException;
 
 public class RecetaMedicaDAO extends MySQLDataHelper implements IDAO<RecetaMedicaDTO> {
     @Override
@@ -89,10 +86,16 @@ public class RecetaMedicaDAO extends MySQLDataHelper implements IDAO<RecetaMedic
                 + ") VALUES (?, ?)";
         try {
             Connection conn = openConnection();
-            PreparedStatement pstmt = conn.prepareStatement(query);
+            PreparedStatement pstmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1, entity.getIdTurno());
             pstmt.setString(2, entity.getIndicaciones());
             pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if (rs.next()) {
+                entity.setIdRecetaMedica(rs.getInt(1));
+            }
+
             return true;
         } catch (SQLException e) {
             throw new PoliSaludException(e.getMessage(), getClass().getName(), "create()");
