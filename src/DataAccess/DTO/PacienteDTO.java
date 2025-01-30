@@ -16,6 +16,18 @@ public class PacienteDTO {
     public PacienteDTO() {
     }
 
+    public PacienteDTO(Integer idUsuario, String nombre, String apellido, String codigoUnico, String telefono,
+            String fechaNacimiento, String direccion) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.codigoUnico = codigoUnico;
+        this.telefono = telefono;
+        this.fechaNacimiento = fechaNacimiento;
+        this.direccion = direccion;
+
+    }
+
     public PacienteDTO(Integer idPaciente, Integer idUsuario, String nombre, String apellido, String codigoUnico,
             String telefono, String fechaNacimiento, String direccion, String estado, String fechaCrea,
             String fechaModifica) {

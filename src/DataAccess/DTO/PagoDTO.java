@@ -3,6 +3,7 @@ package DataAccess.DTO;
 public class PagoDTO {
     private Integer idPago;
     private Integer idFactura;
+    private Integer idPagoMetodo;
     private String estado;
     private String fechaCrea;
     private String fechaModifica;
@@ -10,12 +11,27 @@ public class PagoDTO {
     public PagoDTO() {
     }
 
-    public PagoDTO(Integer idPago, Integer idFactura, String estado, String fechaCrea, String fechaModifica) {
+    public PagoDTO(Integer idFactura, Integer idPagoMetodo) {
+        this.idFactura = idFactura;
+        this.idPagoMetodo = idPagoMetodo;
+    }
+
+    public PagoDTO(Integer idPago, Integer idFactura, Integer idPagoMetodo, String estado, String fechaCrea,
+                   String fechaModifica) {
         this.idPago = idPago;
         this.idFactura = idFactura;
+        this.idPagoMetodo = idPagoMetodo;
         this.estado = estado;
         this.fechaCrea = fechaCrea;
         this.fechaModifica = fechaModifica;
+    }
+
+    public Integer getIdPagoMetodo() {
+        return idPagoMetodo;
+    }
+
+    public void setIdPagoMetodo(Integer idPagoMetodo) {
+        this.idPagoMetodo = idPagoMetodo;
     }
 
     public Integer getIdPago() {
@@ -63,6 +79,7 @@ public class PagoDTO {
         return getClass().getName()
                 + "\n IdPago: " + getIdPago()
                 + "\n IdFactura: " + getIdFactura()
+                + "\n IdPagoMetodo: " + getIdPagoMetodo()
                 + "\n Estado: " + getEstado()
                 + "\n FechaCrea: " + getFechaCrea()
                 + "\n FechaModifica: " + getFechaModifica();

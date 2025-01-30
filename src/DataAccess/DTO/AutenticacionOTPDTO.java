@@ -3,6 +3,7 @@ package DataAccess.DTO;
 public class AutenticacionOTPDTO {
 
     private Integer idAutenticacionOTP;
+    private Integer idUsuario;
     private String otp;
     private String otpExpiracion;
     private String fechaCrea;
@@ -10,8 +11,16 @@ public class AutenticacionOTPDTO {
     public AutenticacionOTPDTO() {
     }
 
-    public AutenticacionOTPDTO(Integer idAutenticacionOTP, String otp, String otpExpiracion, String fechaCrea) {
+    public AutenticacionOTPDTO(Integer idUsuario, String otp, String otpExpiracion) {
+        this.idUsuario = idUsuario;
+        this.otp = otp;
+        this.otpExpiracion = otpExpiracion;
+    }
+
+    public AutenticacionOTPDTO(Integer idAutenticacionOTP, Integer idUsuario, String otp, String otpExpiracion,
+                               String fechaCrea) {
         this.idAutenticacionOTP = idAutenticacionOTP;
+        this.idUsuario = idUsuario;
         this.otp = otp;
         this.otpExpiracion = otpExpiracion;
         this.fechaCrea = fechaCrea;
@@ -56,5 +65,13 @@ public class AutenticacionOTPDTO {
                 + "\n OTP: " + getOtp()
                 + "\n OTP Expiracion: " + getOtpExpiracion()
                 + "\n Fecha Crea: " + getFechaCrea();
+    }
+
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 }

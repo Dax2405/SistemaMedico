@@ -13,8 +13,15 @@ public class PacienteHistoriaClinicaDTO {
     public PacienteHistoriaClinicaDTO() {
     }
 
+    public PacienteHistoriaClinicaDTO(Integer idPaciente, String diagnostico, String tratamiento, Integer idMedico) {
+        this.idPaciente = idPaciente;
+        this.diagnostico = diagnostico;
+        this.tratamiento = tratamiento;
+        this.idMedico = idMedico;
+    }
+
     public PacienteHistoriaClinicaDTO(Integer idPacienteHistoriaClinica, Integer idPaciente, String diagnostico,
-            String tratamiento, Integer idMedico, String estado, String fechaCrea, String fechaModifica) {
+                                      String tratamiento, Integer idMedico, String estado, String fechaCrea, String fechaModifica) {
         this.idPacienteHistoriaClinica = idPacienteHistoriaClinica;
         this.idPaciente = idPaciente;
         this.diagnostico = diagnostico;

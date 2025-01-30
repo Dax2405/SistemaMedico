@@ -11,6 +11,11 @@ public class MedicamentoRecetadoDTO {
     public MedicamentoRecetadoDTO() {
     }
 
+    public MedicamentoRecetadoDTO(Integer idRecetaMedica, Integer idMedicamento) {
+        this.idRecetaMedica = idRecetaMedica;
+        this.idMedicamento = idMedicamento;
+    }
+
     public MedicamentoRecetadoDTO(Integer idMedicamentoRecetado, Integer idRecetaMedica, Integer idMedicamento,
             String estado,
             String fechaCrea,

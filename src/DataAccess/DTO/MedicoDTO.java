@@ -6,8 +6,8 @@ public class MedicoDTO {
     private String nombre;
     private String apellido;
     private String telefono;
-    private String idMedicoEspecialidad;
-    private String idMedicoRol;
+    private Integer idMedicoEspecialidad;
+    private Integer idMedicoRol;
     private String estado;
     private String fechaCrea;
     private String fechaModifica;
@@ -15,8 +15,18 @@ public class MedicoDTO {
     public MedicoDTO() {
     }
 
+    public MedicoDTO(Integer idUsuario, String nombre, String apellido, String telefono, Integer idMedicoEspecialidad,
+            Integer idMedicoRol) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+        this.idMedicoEspecialidad = idMedicoEspecialidad;
+        this.idMedicoRol = idMedicoRol;
+    }
+
     public MedicoDTO(Integer idMedico, Integer idUsuario, String nombre, String apellido, String telefono,
-            String idMedicoEspecialidad, String idMedicoRol, String estado, String fechaCrea, String fechaModifica) {
+            Integer idMedicoEspecialidad, Integer idMedicoRol, String estado, String fechaCrea, String fechaModifica) {
         this.idMedico = idMedico;
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -27,6 +37,22 @@ public class MedicoDTO {
         this.estado = estado;
         this.fechaCrea = fechaCrea;
         this.fechaModifica = fechaModifica;
+    }
+
+    public Integer getIdMedicoRol() {
+        return idMedicoRol;
+    }
+
+    public void setIdMedicoRol(Integer idMedicoRol) {
+        this.idMedicoRol = idMedicoRol;
+    }
+
+    public Integer getIdMedicoEspecialidad() {
+        return idMedicoEspecialidad;
+    }
+
+    public void setIdMedicoEspecialidad(Integer idMedicoEspecialidad) {
+        this.idMedicoEspecialidad = idMedicoEspecialidad;
     }
 
     public Integer getIdMedico() {
@@ -67,22 +93,6 @@ public class MedicoDTO {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getIdMedicoEspecialidad() {
-        return idMedicoEspecialidad;
-    }
-
-    public void setIdMedicoEspecialidad(String idMedicoEspecialidad) {
-        this.idMedicoEspecialidad = idMedicoEspecialidad;
-    }
-
-    public String getIdMedicoRol() {
-        return idMedicoRol;
-    }
-
-    public void setIdMedicoRol(String idMedicoRol) {
-        this.idMedicoRol = idMedicoRol;
     }
 
     public String getEstado() {

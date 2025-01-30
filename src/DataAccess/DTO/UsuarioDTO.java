@@ -12,6 +12,12 @@ public class UsuarioDTO {
     public UsuarioDTO() {
     }
 
+    public UsuarioDTO(String email, String contrasena, String tipoUsuario) {
+        this.email = email;
+        this.contrasena = contrasena;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public UsuarioDTO(Integer idUsuario, String email, String contrasena, String tipoUsuario, String estado,
             String fechaCrea, String fechaModifica) {
         this.idUsuario = idUsuario;

@@ -14,8 +14,16 @@ public class TurnoDTO {
     public TurnoDTO() {
     }
 
+    public TurnoDTO(Integer idPaciente, Integer idMedico, Integer idSala, String fechaTurno, Integer idTurnoEstado) {
+        this.idPaciente = idPaciente;
+        this.idMedico = idMedico;
+        this.idSala = idSala;
+        this.fechaTurno = fechaTurno;
+        this.idTurnoEstado = idTurnoEstado;
+    }
+
     public TurnoDTO(Integer idTurno, Integer idPaciente, Integer idMedico, Integer idSala, String fechaTurno,
-            Integer idTurnoEstado, String estado, String fechaCrea, String fechaModifica) {
+                    Integer idTurnoEstado, String estado, String fechaCrea, String fechaModifica) {
         this.idTurno = idTurno;
         this.idPaciente = idPaciente;
         this.idMedico = idMedico;
