@@ -1,7 +1,8 @@
 ## PoliSalud - EPN - G4
 
-PoliSalud es un sistema medico desarrollado por el grupo G4 de la Escuela Politécnica Nacional (EPN). Este proyecto está diseñado utilizando la arquitectura n-tier, que separa la aplicación en capas lógicas para mejorar la escalabilidad, mantenibilidad y reutilización del código.
-
+PoliSalud es un sistema medico desarrollado por el grupo G4 de la Escuela Politécnica Nacional (EPN). Este proyecto está
+diseñado utilizando la arquitectura n-tier, que separa la aplicación en capas lógicas para mejorar la escalabilidad,
+mantenibilidad y reutilización del código.
 
 ### Arquitectura n-tier
 
@@ -14,4 +15,3 @@ El sistema PoliSalud está dividido en las siguientes capas:
 
 ### Gestión de Dependencias
 
-El proyecto utiliza el archivo `lib/sqlite-jdbc-3.48.0.0.jar` para la conexión con la base de datos SQLite. Las dependencias se pueden gestionar desde la vista `JAVA PROJECTS` en Visual Studio Code. Más detalles se pueden encontrar [aquí](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
