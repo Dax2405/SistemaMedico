@@ -1,0 +1,558 @@
+@startuml
+
+package "BusinessLogic.Entities.Usuario" {
+    class Usuario {
+        - Integer id
+        - String nombre
+        - String apellido
+        - String telefono
+        - String email
+        - String contrasena
+        + {get; set;}
+    }
+
+    class Medico extends Usuario {
+        - Integer idMedicoEspecialidad
+        - Integer idMedicoRol
+        + Medico(Integer id, String nombre, String apellido, String telefono, Integer idMedicoEspecialidad, Integer idMedicoRol)
+        + recetar(Paciente paciente, Turno turno, String indicaciones, Medicamento medicamento)
+        + generarHistoriaClinica(Paciente paciente, Turno turno, String diagnostico, String tratamiento)
+        + {get; set;}
+    }
+
+    class Paciente extends Usuario {
+        - String codigoUnico
+        - String direccion
+        - String fechaNacimiento
+        - Float costo
+        - ArrayList<HistoriaClinica> historiasClinica
+        + Paciente(Integer id, String nombre, String apellido, String telefono, String codigoUnico, String direccion, String fechaNacimiento, String email)
+        + Paciente(Integer id, String nombre, String apellido, String telefono, String codigoUnico, String direccion, String fechaNacimiento, List<PacienteHistoriaClinicaDTO> historiasClinica, String email)
+        + registrarTurno(Medico medico, String fecha, Integer sala)
+        + addHistoriaClinica(HistoriaClinica historiaClinica)
+        + pagarTurno(Turno turno, Integer idPagoMetodo)
+        + {get; set;}
+    }
+}
+
+package "BusinessLogic.Entities.Turno" {
+    class Turno {
+        - Integer id
+        - Paciente paciente
+        - Medico medico
+        - Integer idSala
+        - String fecha
+        - Integer idTurnoEstado
+        + Turno(Integer id, Paciente paciente, Medico medico, Integer idSala, String fecha, Integer idTurnoEstado)
+        + generarFactura() : Float
+        + pagar(Integer idPagoMetodo)
+        + {get; set;}
+    }
+
+    class HistoriaClinica {
+        - String diagnostico
+        - String tratamiento
+        - Medico medico
+        + HistoriaClinica(String diagnostico, String tratamiento, Medico medico)
+    }
+}
+
+package "BusinessLogic.Entities.RecetaMedica" {
+    class Medicamento {
+        - Integer id
+        - String nombreComercial
+        - String nombreQuimico
+        - Float concentracion
+        + Medicamento(Integer id, String nombreComercial, String nombreQuimico, Float concentracion)
+        + {get; set;}
+    }
+}
+
+package "BusinessLogic.Entities.Autenticacion" {
+    class Autenticacion {
+        + static Usuario obtenerInstanciaPorTipoUsuario(UsuarioDTO usuarioDTO)
+        + static Paciente registrarPaciente(String nombre, String apellido, String codigoUnico, String telefono, String fechaNacimiento, String direccion, String email, String contraseña)
+        + static Usuario registrarUsuario(String nombre, String apellido, String telefono, Integer idMedicoEspecialidad, Integer idMedicoRol, String email, String contraseña)
+    }
+
+    class AutenticacionCredenciales extends Autenticacion {
+        + static Usuario autenticar(String email, String contrasena)
+    }
+
+    class AutenticacionFacial extends Autenticacion {
+        + static Usuario autenticar()
+    }
+
+    class AutenticacionOTP extends Autenticacion {
+        + static Boolean autenticar(String email)
+        + static Boolean validarOTP(String otp)
+        + static Usuario obtenerUsuario()
+    }
+}
+
+package "BusinessLogic.Entities.Utils" {
+    class AutenticacionFacialUtils {
+        + static void captureAndSavePhoto() throws IOException
+        + static Integer autenticarFacialmente() throws IOException
+        + static Boolean registrarFacialmente(Integer idUsuario) throws IOException
+    }
+}
+
+package "DataAccess.DTO" {
+    class MedicoDTO {
+        - Integer idMedico
+        - Integer idUsuario
+        - String nombre
+        - String apellido
+        - String telefono
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class PacienteDTO {
+        - Integer idPaciente
+        - Integer idUsuario
+        - String nombre
+        - String apellido
+        - String codigoUnico
+        - String telefono
+        - String fechaNacimiento
+        - String direccion
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class TurnoDTO {
+        - Integer idTurno
+        - Integer idPaciente
+        - Integer idMedico
+        - Integer idSala
+        - String fechaTurno
+        - Integer idTurnoEstado
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class PacienteHistoriaClinicaDTO {
+        - Integer idPacienteHistoriaClinica
+        - Integer idPaciente
+        - String diagnostico
+        - String tratamiento
+        - Integer idMedico
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class PagoDTO {
+        - Integer idPago
+        - Integer idFactura
+        - Integer idPagoMetodo
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class FacturaDTO {
+        - Integer idFactura
+        - Integer idTurno
+        - Float montoTotal
+        - String estadoPago
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class PagoMetodoDTO {
+        - Integer idPagoMetodo
+        - String nombreMetodo
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class MedicoEspecialidadDTO {
+        - Integer idMedicoEspecialidad
+        - String nombreEspecialidad
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class TurnoEstadoDTO {
+        - Integer idTurnoEstado
+        - String nombreEstado
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class MedicamentoDTO {
+        - Integer idMedicamento
+        - String nombreComercial
+        - String nombreQuimico
+        - Float concentracion
+        - Integer idMedicamentoTipo
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class MedicamentoRecetadoDTO {
+        - Integer idMedicamentoRecetado
+        - Integer idRecetaMedica
+        - Integer idMedicamento
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class RecetaMedicaDTO {
+        - Integer idRecetaMedica
+        - Integer idTurno
+        - String indicaciones
+        - String estado
+        - String fechaCrea
+        - String fechaModifica
+        + {get; set;}
+    }
+
+    class AutenticacionFacialDTO {
+        - Integer idAutenticacion
+        - Integer idUsuario
+        - byte[] encodingFacial
+        - String fechaCrea
+        + {get; set;}
+    }
+
+    class AutenticacionOTPDTO {
+        - Integer idAutenticacionOTP
+        - Integer idUsuario
+        - String otp
+        - String otpExpiracion
+        - String fechaCrea
+        + {get; set;}
+    }
+}
+
+package "DataAccess.DAO" {
+    class MedicoDAO {
+        + readAllByEspecialidadId(Integer idMedicoEspecialidad)
+    }
+
+    class PacienteDAO {
+        + readBy(Integer id)
+        + readByUsuarioId(Integer id)
+    }
+
+    class TurnoDAO {
+        + readByPacienteAndMedicoId(Integer idPaciente, Integer idMedico)
+    }
+
+    class PagoDAO {
+        + readAll()
+    }
+
+    class FacturaDAO {
+        + readByTurnoId(Integer idTurno)
+    }
+
+    class PagoMetodoDAO {
+        + readBy(Integer id)
+        + readAll()
+        + create(PagoMetodoDTO entity)
+        + update(PagoMetodoDTO entity)
+        + delete(Integer id)
+        + getMaxRow()
+    }
+
+    class MedicoEspecialidadDAO {
+        + getAll()
+    }
+
+    class MedicamentoDAO {
+        + getAll()
+    }
+
+    class UsuarioDAO {
+        + getBy(Integer id)
+    }
+
+    class RecetaMedicaDAO {
+        + add(RecetaMedicaDTO recetaMedicaDTO)
+    }
+
+    class MedicamentoRecetadoDAO {
+        + add(MedicamentoRecetadoDTO medicamentoRecetadoDTO)
+    }
+
+    class PacienteHistoriaClinicaDAO {
+        + add(PacienteHistoriaClinicaDTO historiaClinicaDTO)
+    }
+
+    class AutenticacionFacialDAO {
+        + readBy(Integer id)
+        + readAll()
+        + create(AutenticacionFacialDTO entity)
+        + update(AutenticacionFacialDTO entity)
+        + delete(Integer id)
+        + getMaxRow()
+    }
+
+    class AutenticacionOTPDAO {
+        + readBy(Integer id)
+        + readAll()
+        + create(AutenticacionOTPDTO entity)
+        + update(AutenticacionOTPDTO entity)
+        + delete(Integer id)
+        + getMaxRow()
+    }
+}
+
+package "BusinessLogic" {
+    class BLFactory<T> {
+        + BLFactory(Supplier<T> supplier)
+        + add(T entity)
+        + getAll()
+        + getBy(Integer id)
+    }
+}
+
+package "Framework" {
+    class PoliSaludException {
+        + PoliSaludException(String message, String className, String methodName)
+    }
+}
+
+package "ui" {
+    class RegistrarTurnoPanel {
+        - Paciente paciente
+        - JComboBox<String> especialidadComboBox
+        - JComboBox<String> medicoComboBox
+        - JDatePickerImpl datePicker
+        - JButton generarTurnoButton
+        - JLabel loadingLabel
+        - List<MedicoEspecialidadDTO> especialidades
+        - List<MedicoDTO> medicos
+        - Turno turno
+        - JLabel metodoPagoLabel
+        - JComboBox<String> metodoPagoComboBox
+        - JButton pagarButton
+        - List<PagoMetodoDTO> metodosPago
+        + RegistrarTurnoPanel(Paciente paciente)
+        + cargarEspecialidades()
+        + cargarMedicos()
+        + generarTurno()
+        + cargarMetodosPago()
+        + pagarTurno()
+        + mostrarCargando()
+        + ocultarCargando()
+    }
+
+    class RegistrarPanel {
+        - JComboBox<String> tipoUsuarioComboBox
+        - JPanel camposPanel
+        - JTextField nombreField
+        - JTextField apellidoField
+        - JTextField codigoUnicoField
+        - JTextField telefonoField
+        - JTextField fechaNacimientoField
+        - JTextField direccionField
+        - JTextField emailField
+        - JPasswordField contraseñaField
+        - JComboBox<String> especialidadComboBox
+        - JComboBox<String> rolComboBox
+        - JButton registrarButton
+        - JLabel loadingLabel
+        - List<MedicoEspecialidadDTO> especialidades
+        - List<MedicoRolDTO> roles
+        + RegistrarPanel()
+        + actualizarCampos()
+        + cargarEspecialidades()
+        + cargarRoles()
+        + registrarUsuario()
+        + mostrarCargando()
+        + ocultarCargando()
+    }
+
+    class MedicoPanel {
+        - Medico medico
+        - JComboBox<String> pacienteComboBox
+        - JComboBox<String> turnoComboBox
+        - JComboBox<String> medicamentoComboBox
+        - JTextField diagnosticoField
+        - JTextField tratamientoField
+        - JTextField indicacionesField
+        - JButton seleccionarButton
+        - JButton crearHistoriaClinicaButton
+        - JButton recetarButton
+        - JLabel loadingLabel
+        - List<PacienteDTO> pacientes
+        - List<TurnoDTO> turnos
+        - List<MedicamentoDTO> medicamentos
+        - Paciente pacienteSeleccionado
+        - Turno turnoSeleccionado
+        + MedicoPanel(Medico medico)
+        + cargarPacientes()
+        + cargarTurnos()
+        + seleccionarPacienteYTurno()
+        + crearHistoriaClinica()
+        + cargarMedicamentos()
+    }
+
+    class PacientePanel {
+        - Paciente paciente
+        + PacientePanel(Paciente paciente)
+    }
+
+    class HistoriasClinicasPanel {
+        - Paciente paciente
+        - DefaultTableModel tableModel
+        - JTable table
+        + HistoriasClinicasPanel(Paciente paciente)
+    }
+
+    class LoginPanel {
+        - JTextField emailField
+        - JPasswordField passwordField
+        - JLabel loadingLabel
+        + LoginPanel()
+        + mostrarCargando()
+        + ocultarCargando()
+        + Usuario autenticarCredenciales() throws Exception
+        + Usuario autenticarFacial() throws Exception
+        + void autenticarOTP() throws Exception
+        + void manejarAutenticacion(Usuario usuario)
+    }
+
+    class OTPPanel {
+        - JTextField otpField
+        + OTPPanel()
+        + void validarCodigoOTP() throws Exception
+        + void manejarAutenticacion(Usuario usuario)
+    }
+
+    class GUI {
+        - static GUI instance
+        - JFrame frame
+        - JPanel mainPanel
+        - CardLayout cardLayout
+        + static GUI getInstance()
+        + void showLoginScreen()
+        + void showOTPPanel()
+        + void showPacienteScreen(Paciente paciente)
+        + void showRegitrarTurnoScreen(Paciente paciente)
+        + void showHistoriasClinicasScreen(Paciente paciente)
+        + void showMedicoScreen(Medico medico)
+        + void showRegistrarPanel()
+    }
+}
+
+Usuario <|-- Medico
+Usuario <|-- Paciente
+Turno --> Paciente
+Turno --> Medico
+Turno --> HistoriaClinica
+HistoriaClinica --> Medico
+Paciente --> HistoriaClinica
+Medico --> Medicamento
+Medico --> RecetaMedica
+Medico --> PacienteHistoriaClinica
+Medico --> Turno
+Paciente --> Turno
+Paciente --> PagoDTO
+Paciente --> FacturaDTO
+Paciente --> PagoMetodoDTO
+Paciente --> MedicoEspecialidadDTO
+Paciente --> TurnoEstadoDTO
+Paciente --> MedicamentoDTO
+Paciente --> MedicamentoRecetadoDTO
+Paciente --> RecetaMedicaDTO
+Medico --> MedicoDTO
+Medico --> PacienteDTO
+Medico --> TurnoDTO
+Medico --> PacienteHistoriaClinicaDTO
+Medico --> PagoDTO
+Medico --> FacturaDTO
+Medico --> PagoMetodoDTO
+Medico --> MedicoEspecialidadDTO
+Medico --> TurnoEstadoDTO
+Medico --> MedicamentoDTO
+Medico --> MedicamentoRecetadoDTO
+Medico --> RecetaMedicaDTO
+Medico --> MedicoDAO
+Medico --> PacienteDAO
+Medico --> TurnoDAO
+Medico --> PagoDAO
+Medico --> FacturaDAO
+Medico --> PagoMetodoDAO
+Medico --> MedicoEspecialidadDAO
+Medico --> MedicamentoDAO
+Medico --> UsuarioDAO
+Medico --> RecetaMedicaDAO
+Medico --> MedicamentoRecetadoDAO
+Medico --> PacienteHistoriaClinicaDAO
+BLFactory --> MedicoDAO
+BLFactory --> PacienteDAO
+BLFactory --> TurnoDAO
+BLFactory --> PagoDAO
+BLFactory --> FacturaDAO
+BLFactory --> PagoMetodoDAO
+BLFactory --> MedicoEspecialidadDAO
+BLFactory --> MedicamentoDAO
+BLFactory --> UsuarioDAO
+BLFactory --> RecetaMedicaDAO
+BLFactory --> MedicamentoRecetadoDAO
+BLFactory --> PacienteHistoriaClinicaDAO
+PoliSaludException --> MedicoDAO
+PoliSaludException --> PacienteDAO
+PoliSaludException --> TurnoDAO
+PoliSaludException --> PagoDAO
+PoliSaludException --> FacturaDAO
+PoliSaludException --> PagoMetodoDAO
+PoliSaludException --> MedicoEspecialidadDAO
+PoliSaludException --> MedicamentoDAO
+PoliSaludException --> UsuarioDAO
+PoliSaludException --> RecetaMedicaDAO
+PoliSaludException --> MedicamentoRecetadoDAO
+PoliSaludException --> PacienteHistoriaClinicaDAO
+RegistrarTurnoPanel --> Paciente
+RegistrarTurnoPanel --> MedicoEspecialidadDTO
+RegistrarTurnoPanel --> MedicoDTO
+RegistrarTurnoPanel --> Turno
+RegistrarTurnoPanel --> PagoMetodoDTO
+RegistrarPanel --> MedicoEspecialidadDTO
+RegistrarPanel --> MedicoRolDTO
+MedicoPanel --> Medico
+MedicoPanel --> PacienteDTO
+MedicoPanel --> TurnoDTO
+MedicoPanel --> MedicamentoDTO
+MedicoPanel --> Paciente
+MedicoPanel --> Turno
+PacientePanel --> Paciente
+HistoriasClinicasPanel --> Paciente
+LoginPanel --> Usuario
+OTPPanel --> Usuario
+GUI --> LoginPanel
+GUI --> OTPPanel
+GUI --> PacientePanel
+GUI --> RegistrarTurnoPanel
+GUI --> HistoriasClinicasPanel
+GUI --> MedicoPanel
+GUI --> RegistrarPanel
+
+@enduml
