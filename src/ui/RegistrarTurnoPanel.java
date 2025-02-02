@@ -23,12 +23,15 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.Calendar;
+import java.util.Date;
 
 public class RegistrarTurnoPanel extends JPanel {
     private Paciente paciente;
     private JComboBox<String> especialidadComboBox;
     private JComboBox<String> medicoComboBox;
     private JDatePickerImpl datePicker;
+    private JSpinner timeSpinner;
     private JButton generarTurnoButton;
     private JLabel loadingLabel;
     private List<MedicoEspecialidadDTO> especialidades;
@@ -95,27 +98,42 @@ public class RegistrarTurnoPanel extends JPanel {
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
         datePicker.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
-        
+
         gbc.gridx = 1;
         add(datePicker, gbc);
+
+        JLabel horaLabel = new JLabel("Hora:");
+        horaLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(horaLabel, gbc);
+
+        SpinnerDateModel timeModel = new SpinnerDateModel();
+        timeSpinner = new JSpinner(timeModel);
+        JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
+        timeSpinner.setEditor(timeEditor);
+        timeSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
+        timeSpinner.setValue(new Date());
+        gbc.gridx = 1;
+        add(timeSpinner, gbc);
 
         generarTurnoButton = new JButton("Generar Turno");
         generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         gbc.gridwidth = 2;
         add(generarTurnoButton, gbc);
 
         loadingLabel = new JLabel("Cargando...");
         loadingLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         loadingLabel.setVisible(false);
-        gbc.gridy = 5;
+        gbc.gridy = 6;
         add(loadingLabel, gbc);
 
         metodoPagoLabel = new JLabel("Método de Pago:");
         metodoPagoLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
-        gbc.gridy = 6;
+        gbc.gridy = 7;
         add(metodoPagoLabel, gbc);
 
         metodoPagoComboBox = new JComboBox<>();
@@ -126,7 +144,7 @@ public class RegistrarTurnoPanel extends JPanel {
         pagarButton = new JButton("Pagar");
         pagarButton.setFont(new Font("Arial", Font.BOLD, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
-        gbc.gridy = 7;
+        gbc.gridy = 8;
         gbc.gridwidth = 2;
         add(pagarButton, gbc);
 
@@ -134,6 +152,22 @@ public class RegistrarTurnoPanel extends JPanel {
         metodoPagoLabel.setVisible(false);
         metodoPagoComboBox.setVisible(false);
         pagarButton.setVisible(false);
+
+        JButton regresarButton = new JButton("Regresar");
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        GridBagConstraints gbcRegresar = new GridBagConstraints();
+        gbcRegresar.gridx = 0;
+        gbcRegresar.gridy = 9;
+        gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
+        gbcRegresar.insets = new Insets(10, 10, 10, 10); // Añadir márgenes para mejor visualización
+        add(regresarButton, gbcRegresar);
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI.getInstance().showPacienteScreen(paciente);
+            }
+        });
 
         cargarEspecialidades();
 
@@ -233,8 +267,24 @@ public class RegistrarTurnoPanel extends JPanel {
                     Random random = new Random();
                     int sala = random.nextInt(3) + 1;
                     java.sql.Date fecha = (java.sql.Date) datePicker.getModel().getValue();
+                    Date time = (Date) timeSpinner.getValue();
 
-                    turno = paciente.registrarTurno(medico, fecha.toString(), sala);
+                    if (fecha == null) {
+                        JOptionPane.showMessageDialog(RegistrarTurnoPanel.this, "Seleccione una fecha.");
+                        return null;
+                    }
+
+                    // Combinar fecha y hora
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.setTime(fecha);
+                    Calendar timeCalendar = Calendar.getInstance();
+                    timeCalendar.setTime(time);
+                    calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
+                    calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+
+                    java.sql.Timestamp fechaHora = new java.sql.Timestamp(calendar.getTimeInMillis());
+
+                    turno = paciente.registrarTurno(medico, fechaHora.toString(), sala);
 
                     JOptionPane.showMessageDialog(RegistrarTurnoPanel.this,
                             "Turno generado con éxito, se ha enviado un correo con los detalles del turno.");
