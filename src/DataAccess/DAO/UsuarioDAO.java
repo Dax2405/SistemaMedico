@@ -167,12 +167,14 @@ public class UsuarioDAO extends MySQLDataHelper implements IDAO<UsuarioDTO> {
                 + " ,fecha_crea    "
                 + " ,fecha_modifica"
                 + " FROM usuario "
-                + " WHERE estado='A' AND email = '" + email + "' AND contrasena = '" + contrasena + "'";
+                + " WHERE estado='A' AND email = ? AND contrasena = ?";
 
         try {
             Connection conn = openConnection(); // conectar a DB
-            Statement stmt = conn.createStatement(); // CRUD : select * ...
-            ResultSet rs = stmt.executeQuery(query); // ejecutar la consulta
+            PreparedStatement pstmt = conn.prepareStatement(query); // CRUD : select * ...
+            pstmt.setString(1, email);
+            pstmt.setString(2, contrasena);
+            ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 oS = new UsuarioDTO(
                         rs.getInt(1), // id_usuario
