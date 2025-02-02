@@ -30,8 +30,9 @@ public class AutenticacionOTP extends Autenticacion {
             oAutenticacionOTP
                     .add(new AutenticacionOTPDTO(usuarioDTO.getIdUsuario(), otp,
                             dtf.format(fiveMinutesLater).toString()));
-            EmailUtils.enviarEmail(email, "Codigo de acceso a Sistema Medico",
+            EmailUtils.enviarEmail(email, "Codigo de acceso a SmartTurn",
                     "Este es tu codigo para acceder al sistema: " + otp);
+            System.out.println("id del usuario: " + idUsuario);
             System.out.println("OTP generado con exito: " + otp);
             return true;
         }
