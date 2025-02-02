@@ -12,6 +12,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegistrarPanel extends JPanel {
     private JComboBox<String> tipoUsuarioComboBox;
@@ -260,6 +262,16 @@ public class RegistrarPanel extends JPanel {
         }.execute();
     }
 
+    public Boolean validarContrasena(String contraseña) throws Exception {
+        // Expresión regular para validar la contraseña
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(contraseña);
+
+        return matcher.matches();
+
+    }
+
     private void registrarUsuario() {
         mostrarCargando();
         new SwingWorker<Void, Void>() {
@@ -275,6 +287,11 @@ public class RegistrarPanel extends JPanel {
                 if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty()
                         || contraseña.isEmpty()) {
                     throw new Exception("Todos los campos son obligatorios.");
+
+                }
+                if (!validarContrasena(contraseña)) {
+                    throw new Exception(
+                            "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial.");
                 }
                 try {
                     if (tipoUsuario.equals("Paciente")) {
