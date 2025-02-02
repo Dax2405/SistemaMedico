@@ -228,4 +228,74 @@ public class PacienteDAO extends MySQLDataHelper implements IDAO<PacienteDTO> {
         }
         return oS;
     }
+
+    public String readEmail(Integer idPaciente) throws Exception {
+        String email = null;
+        String queryPaciente = "SELECT id_usuario FROM paciente WHERE id_paciente = ? AND estado = 'A'";
+        String queryUsuario = "SELECT email FROM usuario WHERE id_usuario = ? AND estado = 'A'";
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            PreparedStatement pstmtPaciente = conn.prepareStatement(queryPaciente);
+            pstmtPaciente.setInt(1, idPaciente);
+            ResultSet rsPaciente = pstmtPaciente.executeQuery();
+
+            if (rsPaciente.next()) {
+                Integer idUsuario = rsPaciente.getInt("id_usuario");
+
+                PreparedStatement pstmtUsuario = conn.prepareStatement(queryUsuario);
+                pstmtUsuario.setInt(1, idUsuario);
+                ResultSet rsUsuario = pstmtUsuario.executeQuery();
+
+                if (rsUsuario.next()) {
+                    email = rsUsuario.getString("email");
+                }
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readEmail()");
+        }
+
+        return email;
+    }
+
+    public List<PacienteDTO> readPacientesByMedicoId(Integer idMedico) throws Exception {
+        List<PacienteDTO> pacientes = new ArrayList<>();
+        String queryTurnos = "SELECT id_paciente FROM turno WHERE id_medico = ? AND estado = 'A'";
+        String queryPaciente = "SELECT id_paciente, id_usuario, nombre, apellido, codigo_unico, telefono, fecha_nacimiento, direccion, estado, fecha_crea, fecha_modifica FROM paciente WHERE id_paciente = ? AND estado = 'A'";
+
+        try {
+            Connection conn = openConnection(); // conectar a DB
+            PreparedStatement pstmtTurnos = conn.prepareStatement(queryTurnos);
+            pstmtTurnos.setInt(1, idMedico);
+            ResultSet rsTurnos = pstmtTurnos.executeQuery();
+
+            while (rsTurnos.next()) {
+                Integer idPaciente = rsTurnos.getInt("id_paciente");
+
+                PreparedStatement pstmtPaciente = conn.prepareStatement(queryPaciente);
+                pstmtPaciente.setInt(1, idPaciente);
+                ResultSet rsPaciente = pstmtPaciente.executeQuery();
+
+                if (rsPaciente.next()) {
+                    PacienteDTO paciente = new PacienteDTO(
+                            rsPaciente.getInt("id_paciente"),
+                            rsPaciente.getInt("id_usuario"),
+                            rsPaciente.getString("nombre"),
+                            rsPaciente.getString("apellido"),
+                            rsPaciente.getString("codigo_unico"),
+                            rsPaciente.getString("telefono"),
+                            rsPaciente.getString("fecha_nacimiento"),
+                            rsPaciente.getString("direccion"),
+                            rsPaciente.getString("estado"),
+                            rsPaciente.getString("fecha_crea"),
+                            rsPaciente.getString("fecha_modifica"));
+                    pacientes.add(paciente);
+                }
+            }
+        } catch (SQLException e) {
+            throw new PoliSaludException(e.getMessage(), getClass().getName(), "readPacientesByMedicoId()");
+        }
+
+        return pacientes;
+    }
 }
