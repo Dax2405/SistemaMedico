@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HistoriasClinicasPanel extends JPanel {
     private Paciente paciente;
@@ -37,6 +39,22 @@ public class HistoriasClinicasPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
 
+        JButton regresarButton = new JButton("Regresar");
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI.getInstance().showPacienteScreen(paciente);
+                ;
+            }
+        });
+
+        // Añadir el botón en la parte inferior
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(regresarButton);
+        add(buttonPanel, BorderLayout.SOUTH);
+
         // Cargar las historias clínicas
         cargarHistoriasClinicas();
     }
@@ -51,4 +69,5 @@ public class HistoriasClinicasPanel extends JPanel {
             tableModel.addRow(rowData);
         }
     }
+
 }
