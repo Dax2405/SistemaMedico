@@ -100,7 +100,6 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
                 + "id_usuario, "
                 + "nombre, "
                 + "apellido, "
-                + "email, "
                 + "telefono, "
                 + "id_medico_especialidad, "
                 + "id_medico_rol"
@@ -125,7 +124,7 @@ public class MedicoDAO extends MySQLDataHelper implements IDAO<MedicoDTO> {
     public boolean update(MedicoDTO entity) throws Exception {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String query = " UPDATE medico SET id_usuario = ?, nombre = ?, apellido = ?, email = ?, telefono = ?, id_medico_especialidad = ?, id_medico_rol = ?, fecha_modifica = ? WHERE id_medico = ?";
+        String query = " UPDATE medico SET id_usuario = ?, nombre = ?, apellido = ?, telefono = ?, id_medico_especialidad = ?, id_medico_rol = ?, fecha_modifica = ? WHERE id_medico = ?";
         try {
             Connection conn = openConnection();
             PreparedStatement pstmt = conn.prepareStatement(query);

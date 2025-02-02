@@ -42,8 +42,8 @@ public class Medico extends Usuario {
 
         System.out.println("Receta generada con exito");
         EmailUtils.enviarEmail(paciente.getEmail(),
-                "SISTEMA MEDICO - Medicamento recetado para el turno del " + turno.getFecha(),
-                "SISTEMA MEDICO \n " + paciente.getNombre() + " " + paciente.getApellido()
+                "SmartTurn - Medicamento recetado para el turno del " + turno.getFecha(),
+                "SmartTurn \n " + paciente.getNombre() + " " + paciente.getApellido()
                         + "\nEl medicamento recetado es: " + medicamento.getNombreComercial()
                         + " o con su nombre Quimico: "
                         + medicamento.getNombreQuimico() + " con concentracion: "
@@ -63,7 +63,7 @@ public class Medico extends Usuario {
 
         System.out.println("Historia clinica generada con exito");
         EmailUtils.enviarEmail(paciente.getEmail(), "Diagnostico para el turno del " + turno.getFecha(),
-                "SISTEMA MEDICO \n " + paciente.getNombre() + " " + paciente.getApellido() +
+                "SmartTurn \n " + paciente.getNombre() + " " + paciente.getApellido() +
                         "\nSu diagnóstico es: " + diagnostico + " y su tratamiento es: " + tratamiento);
 
     }

@@ -24,9 +24,10 @@ public class GUI {
         } catch (Exception e) {
             System.out.println("Error setting theme");
         }
-        frame = new JFrame("Sistema Medico");
+        frame = new JFrame("SmartTurn");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
         frame.add(mainPanel);
@@ -76,7 +77,7 @@ public class GUI {
         cardLayout.show(mainPanel, "medico");
     }
 
-    public void showRegistrarPanel() {
+    public void showRegistrarScreen() {
         RegistrarPanel registrarPanel = new RegistrarPanel();
         mainPanel.add(registrarPanel, "registrar");
         cardLayout.show(mainPanel, "registrar");

@@ -8,11 +8,9 @@ import BusinessLogic.Entities.RecetaMedica.Medicamento;
 import DataAccess.DAO.MedicamentoDAO;
 import DataAccess.DAO.PacienteDAO;
 import DataAccess.DAO.TurnoDAO;
-import DataAccess.DAO.UsuarioDAO;
 import DataAccess.DTO.MedicamentoDTO;
 import DataAccess.DTO.PacienteDTO;
 import DataAccess.DTO.TurnoDTO;
-import DataAccess.DTO.UsuarioDTO;
 
 import javax.swing.*;
 import java.awt.*;
@@ -154,6 +152,30 @@ public class MedicoPanel extends JPanel {
         gbc.gridy = 1;
         add(loadingLabel, gbc);
 
+        // Botón de regresar
+        JButton regresarButton = new JButton("Regresar");
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        GridBagConstraints gbcRegresar = new GridBagConstraints();
+        gbcRegresar.gridx = 0;
+        gbcRegresar.gridy = 0;
+        gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
+        gbcRegresar.insets = new Insets(10, 10, 10, 10); // Añadir márgenes para mejor visualización
+        JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        panelBoton.add(regresarButton);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(panelBoton, gbc);
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI.getInstance().showLoginScreen();
+            }
+        });
+
         cargarPacientes();
         cargarMedicamentos();
 
@@ -191,8 +213,9 @@ public class MedicoPanel extends JPanel {
         new SwingWorker<List<PacienteDTO>, Void>() {
             @Override
             protected List<PacienteDTO> doInBackground() throws Exception {
-                BLFactory<PacienteDTO> oPaciente = new BLFactory<>(PacienteDAO::new);
-                return oPaciente.getAll();
+                PacienteDAO oPaciente = new PacienteDAO();
+
+                return oPaciente.readPacientesByMedicoId(medico.getId());
             }
 
             @Override
@@ -221,7 +244,7 @@ public class MedicoPanel extends JPanel {
                 if (selectedIndex >= 0) {
                     PacienteDTO paciente = pacientes.get(selectedIndex);
                     TurnoDAO turnoDAO = new TurnoDAO();
-                    return turnoDAO.readByPacienteId(paciente.getIdPaciente());
+                    return turnoDAO.readByPacienteAndMedicoId(paciente.getIdPaciente(), medico.getId());
                 }
                 return null;
             }
@@ -252,14 +275,13 @@ public class MedicoPanel extends JPanel {
             PacienteDTO pacienteDTO = pacientes.get(selectedPacienteIndex);
             TurnoDTO turnoDTO = turnos.get(selectedTurnoIndex);
 
-            BLFactory<UsuarioDTO> oUsuario = new BLFactory<>(UsuarioDAO::new);
-
             try {
-                UsuarioDTO usuarioDTO = oUsuario.getBy(pacienteDTO.getIdPaciente());
+                PacienteDAO pacienteDAO = new PacienteDAO();
 
                 pacienteSeleccionado = new Paciente(pacienteDTO.getIdPaciente(), pacienteDTO.getNombre(),
                         pacienteDTO.getApellido(), pacienteDTO.getTelefono(), pacienteDTO.getCodigoUnico(),
-                        pacienteDTO.getDireccion(), pacienteDTO.getFechaNacimiento(), usuarioDTO.getEmail());
+                        pacienteDTO.getDireccion(), pacienteDTO.getFechaNacimiento(),
+                        pacienteDAO.readEmail(pacienteDTO.getIdPaciente()));
                 turnoSeleccionado = new Turno(turnoDTO.getIdTurno(), pacienteSeleccionado, medico,
                         turnoDTO.getIdSala(), turnoDTO.getFechaTurno(), turnoDTO.getIdTurnoEstado());
 
@@ -273,12 +295,18 @@ public class MedicoPanel extends JPanel {
     private void crearHistoriaClinica() {
         String diagnostico = diagnosticoField.getText();
         String tratamiento = tratamientoField.getText();
+
         if (pacienteSeleccionado != null && turnoSeleccionado != null) {
+            if (diagnostico.isEmpty() || tratamiento.isEmpty()) {
+                JOptionPane.showMessageDialog(MedicoPanel.this,
+                        "Debe completar los campos de diagnóstico y tratamiento.");
+                return;
+            }
             try {
                 System.out.println("Creando historia clínica...");
                 System.out.println(
                         "Paciente: " + pacienteSeleccionado.getNombre() + " " + pacienteSeleccionado.getApellido() + " "
-                                + pacienteSeleccionado.getId().toString());
+                                + pacienteSeleccionado.getId().toString() + "" + pacienteSeleccionado.getEmail());
                 System.out.println(
                         "Medico: " + medico.getNombre() + " " + medico.getApellido() + " id " + medico.getId());
                 medico.generarHistoriaClinica(pacienteSeleccionado, turnoSeleccionado, diagnostico, tratamiento);
@@ -286,6 +314,8 @@ public class MedicoPanel extends JPanel {
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(MedicoPanel.this, ex.getMessage());
             }
+        } else {
+            JOptionPane.showMessageDialog(MedicoPanel.this, "Debe seleccionar un turno y un paciente.");
         }
     }
 
@@ -320,6 +350,10 @@ public class MedicoPanel extends JPanel {
         String indicaciones = indicacionesField.getText();
         int selectedMedicamentoIndex = medicamentoComboBox.getSelectedIndex();
         if (pacienteSeleccionado != null && turnoSeleccionado != null && selectedMedicamentoIndex >= 0) {
+            if (indicaciones.isEmpty()) {
+                JOptionPane.showMessageDialog(MedicoPanel.this, "Debe completar el campo de indicaciones.");
+                return;
+            }
             MedicamentoDTO medicamentoDTO = medicamentos.get(selectedMedicamentoIndex);
             Medicamento medicamento = new Medicamento(medicamentoDTO.getIdMedicamento(),
                     medicamentoDTO.getNombreComercial(),

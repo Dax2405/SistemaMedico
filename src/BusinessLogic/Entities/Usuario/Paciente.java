@@ -61,17 +61,27 @@ public class Paciente extends Usuario {
 
         BLFactory<TurnoDTO> oTurno = new BLFactory<>(TurnoDAO::new);
 
-        TurnoDTO turnoDTO = new TurnoDTO(getId(), medico.getId(), sala, fecha, 1);
+        TurnoDTO turnoDTO = new TurnoDTO(this.getId(), medico.getId(), sala, fecha, 1);
         oTurno.add(turnoDTO);
         Turno turno = new Turno(turnoDTO.getIdTurno(), this, medico, sala, fecha, 1);
         setCosto(turno.generarFactura());
-        EmailUtils.enviarEmail(this.getEmail(), "Sistema Medico - Turno ",
+        EmailUtils.enviarEmail(this.getEmail(), "SmartTurn - Turno ",
                 "Turno registrado con exito\n" + "Fecha: " + fecha + "\nDoctor: " + medico.getNombre() + " "
                         + medico.getApellido() + "\n"
                         + "Sala: " + sala + "\n" + "Costo: " + getCosto());
 
         System.out.println("Turno registrado con exito");
         return turno;
+    }
+
+    public void pagarTurno(Turno turno, Integer idPagoMetodo) throws Exception {
+        turno.pagar(idPagoMetodo);
+        EmailUtils.enviarEmail(this.getEmail(), "SmartTurn - Factura Pago Turno",
+                "Pago realizado con exito\n" + "Fecha: " + turno.getFecha() + "\nDoctor: "
+                        + turno.getMedico().getNombre() + " "
+                        + turno.getMedico().getApellido() + "\n"
+                        + "Sala: " + turno.getIdSala() + "\n" + "Costo: " + this.getCosto());
+
     }
 
     public ArrayList<HistoriaClinica> getHistoriasClinica() {
@@ -92,16 +102,6 @@ public class Paciente extends Usuario {
 
     public void setCosto(Float costo) {
         this.costo = costo;
-    }
-
-    public void pagarTurno(Turno turno, Integer idPagoMetodo) throws Exception {
-        turno.pagar(idPagoMetodo);
-        EmailUtils.enviarEmail(this.getEmail(), "Sistema Medico - Pago Turno",
-                "Pago realizado con exito\n" + "Fecha: " + turno.getFecha() + "\nDoctor: "
-                        + turno.getMedico().getNombre() + " "
-                        + turno.getMedico().getApellido() + "\n"
-                        + "Sala: " + turno.getIdSala() + "\n" + "Costo: " + this.getCosto());
-
     }
 
     public String getCodigoUnico() {
