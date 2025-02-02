@@ -20,7 +20,7 @@ public class PacientePanel extends JPanel {
         welcomePanel.setLayout(new BoxLayout(welcomePanel, BoxLayout.Y_AXIS));
         welcomePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        JLabel welcomeLabel = new JLabel("Bienvenido a Sistema Medico");
+        JLabel welcomeLabel = new JLabel("Bienvenido a SmartTurn");
         welcomeLabel.setFont(new Font("Arial", Font.BOLD, 24));
         welcomeLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -51,6 +51,19 @@ public class PacientePanel extends JPanel {
 
         JButton registrarTurnoButton = new JButton("Registrar Turno");
         JButton verHistoriasClinicasButton = new JButton("Ver Historias Clínicas");
+
+        JButton regresarButton = new JButton("Regresar");
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        regresarButton.setAlignmentX(Component.LEFT_ALIGNMENT); // Alinear a la izquierda
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 10))); // Añadir espacio
+        buttonPanel.add(regresarButton);
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI.getInstance().showLoginScreen();
+            }
+        });
 
         registrarTurnoButton.addActionListener(new ActionListener() {
             @Override
