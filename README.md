@@ -1,6 +1,6 @@
-## PoliSalud - EPN - G4
+## SmartTurn - EPN 
 
-PoliSalud es un sistema medico desarrollado por el grupo G4 de la Escuela Politécnica Nacional (EPN). Este proyecto está
+SmartTurn es un proyectoque está
 diseñado utilizando la arquitectura n-tier, que separa la aplicación en capas lógicas para mejorar la escalabilidad,
 mantenibilidad y reutilización del código.
 
@@ -15,3 +15,4 @@ El sistema PoliSalud está dividido en las siguientes capas:
 
 ### Gestión de Dependencias
 
+Las dependencias estan manejadas por `/lib`
