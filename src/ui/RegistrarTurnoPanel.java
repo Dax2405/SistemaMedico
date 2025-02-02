@@ -10,6 +10,7 @@ import DataAccess.DAO.PagoMetodoDAO;
 import DataAccess.DTO.MedicoDTO;
 import DataAccess.DTO.MedicoEspecialidadDTO;
 import DataAccess.DTO.PagoMetodoDTO;
+import Framework.PoliSaludException;
 import ui.utils.DateLabelFormatter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -20,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
@@ -273,22 +275,31 @@ public class RegistrarTurnoPanel extends JPanel {
                         JOptionPane.showMessageDialog(RegistrarTurnoPanel.this, "Seleccione una fecha.");
                         return null;
                     }
+                    try {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTime(fecha);
+                        Calendar timeCalendar = Calendar.getInstance();
+                        timeCalendar.setTime(time);
+                        calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
+                        calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
 
-                    // Combinar fecha y hora
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTime(fecha);
-                    Calendar timeCalendar = Calendar.getInstance();
-                    timeCalendar.setTime(time);
-                    calendar.set(Calendar.HOUR_OF_DAY, timeCalendar.get(Calendar.HOUR_OF_DAY));
-                    calendar.set(Calendar.MINUTE, timeCalendar.get(Calendar.MINUTE));
+                        java.sql.Timestamp fechaHora = new java.sql.Timestamp(calendar.getTimeInMillis());
 
-                    java.sql.Timestamp fechaHora = new java.sql.Timestamp(calendar.getTimeInMillis());
+                        LocalDateTime currentDateTime = LocalDateTime.now();
+                        LocalDateTime selectedDateTime = fechaHora.toLocalDateTime();
+                        if (selectedDateTime.isBefore(currentDateTime)) {
+                            JOptionPane.showMessageDialog(RegistrarTurnoPanel.this,
+                                    "No se puede seleccionar una fecha y hora pasadas.");
+                            return null;
+                        }
+                        turno = paciente.registrarTurno(medico, fechaHora.toString(), sala);
 
-                    turno = paciente.registrarTurno(medico, fechaHora.toString(), sala);
-
-                    JOptionPane.showMessageDialog(RegistrarTurnoPanel.this,
-                            "Turno generado con éxito, se ha enviado un correo con los detalles del turno.");
-                    cargarMetodosPago();
+                        JOptionPane.showMessageDialog(RegistrarTurnoPanel.this,
+                                "Turno generado con éxito, se ha enviado un correo con los detalles del turno.");
+                        cargarMetodosPago();
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(RegistrarTurnoPanel.this, e.getMessage());
+                    }
                 }
                 return null;
             }
