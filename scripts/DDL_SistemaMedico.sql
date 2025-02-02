@@ -115,7 +115,7 @@ CREATE TABLE turno (
     id_paciente INTEGER NOT NULL,
     id_medico INTEGER NOT NULL,
     id_sala INTEGER NOT NULL,
-    fecha_turno TIMESTAMP NOT NULL,
+    fecha_turno TIMESTAMP NOT NULL UNIQUE,
     id_turno_estado INTEGER NOT NULL,
     estado TEXT DEFAULT 'A',
     fecha_crea TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
