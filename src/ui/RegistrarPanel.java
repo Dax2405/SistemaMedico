@@ -28,6 +28,7 @@ public class RegistrarPanel extends JPanel {
     private JComboBox<String> rolComboBox;
     private JButton registrarButton;
     private JLabel loadingLabel;
+    private JButton regresarButton;
     private List<MedicoEspecialidadDTO> especialidades;
     private List<MedicoRolDTO> roles;
 
@@ -158,6 +159,12 @@ public class RegistrarPanel extends JPanel {
         gbc.gridy = 11;
         camposPanel.add(loadingLabel, gbc);
 
+        regresarButton = new JButton("Regresar");
+        gbc.gridx = 0;
+        gbc.gridy = 12;
+        gbc.gridwidth = 2;
+        camposPanel.add(regresarButton, gbc);
+
         // Listeners
         tipoUsuarioComboBox.addActionListener(new ActionListener() {
             @Override
@@ -170,6 +177,13 @@ public class RegistrarPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 registrarUsuario();
+            }
+        });
+
+        regresarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GUI.getInstance().showLoginScreen();
             }
         });
 
@@ -258,21 +272,33 @@ public class RegistrarPanel extends JPanel {
                 String email = emailField.getText();
                 String contraseña = new String(contraseñaField.getPassword());
 
-                if (tipoUsuario.equals("Paciente")) {
-                    String codigoUnico = codigoUnicoField.getText();
-                    String fechaNacimiento = fechaNacimientoField.getText();
-                    String direccion = direccionField.getText();
-                    Autenticacion.registrarPaciente(nombre, apellido, codigoUnico, telefono, fechaNacimiento, direccion,
-                            email, contraseña);
-                } else {
-                    int selectedEspecialidadIndex = especialidadComboBox.getSelectedIndex();
-                    int selectedRolIndex = rolComboBox.getSelectedIndex();
-                    if (selectedEspecialidadIndex >= 0 && selectedRolIndex >= 0) {
-                        MedicoEspecialidadDTO especialidad = especialidades.get(selectedEspecialidadIndex);
-                        MedicoRolDTO rol = roles.get(selectedRolIndex);
-                        Autenticacion.registrarUsuario(nombre, apellido, telefono,
-                                especialidad.getIdMedicoEspecialidad(), rol.getIdMedicoRol(), email, contraseña);
+                if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty()
+                        || contraseña.isEmpty()) {
+                    throw new Exception("Todos los campos son obligatorios.");
+                }
+                try {
+                    if (tipoUsuario.equals("Paciente")) {
+                        String codigoUnico = codigoUnicoField.getText();
+                        String fechaNacimiento = fechaNacimientoField.getText();
+                        String direccion = direccionField.getText();
+                        if (codigoUnico.isEmpty() || fechaNacimiento.isEmpty() || direccion.isEmpty()) {
+                            throw new Exception("Todos los campos son obligatorios.");
+                        }
+                        Autenticacion.registrarPaciente(nombre, apellido, codigoUnico, telefono, fechaNacimiento,
+                                direccion,
+                                email, contraseña);
+                    } else {
+                        int selectedEspecialidadIndex = especialidadComboBox.getSelectedIndex();
+                        int selectedRolIndex = rolComboBox.getSelectedIndex();
+                        if (selectedEspecialidadIndex >= 0 && selectedRolIndex >= 0) {
+                            MedicoEspecialidadDTO especialidad = especialidades.get(selectedEspecialidadIndex);
+                            MedicoRolDTO rol = roles.get(selectedRolIndex);
+                            Autenticacion.registrarUsuario(nombre, apellido, telefono,
+                                    especialidad.getIdMedicoEspecialidad(), rol.getIdMedicoRol(), email, contraseña);
+                        }
                     }
+                } catch (Exception ex) {
+                    throw new Exception("Error al registrar usuario: " + ex.getMessage());
                 }
                 return null;
             }
