@@ -13,20 +13,27 @@ public class GUI {
     private CardLayout cardLayout;
 
     private GUI() {
-        FlatLightLaf.setup();
-        FlatLightLaf.supportsNativeWindowDecorations();
+        // Configuración del tema
+        FlatMaterialDarkerIJTheme.setup();
+        FlatMaterialDarkerIJTheme.supportsNativeWindowDecorations();
         try {
-            UIManager.setLookAndFeel(new FlatAtomOneDarkIJTheme());
+            UIManager.setLookAndFeel(new FlatMaterialDarkerIJTheme());
         } catch (Exception e) {
             System.out.println("Error setting theme");
         }
+
         frame = new JFrame("SmartTurn");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        frame.add(mainPanel);
+        mainPanel.setBackground(new Color(10, 25, 50)); // Fondo azul oscuro
+        frame.add(mainPanel, BorderLayout.CENTER);
+
+        // Mostrar la pantalla de inicio de sesión al iniciar
+        showLoginScreen();
+        frame.setVisible(true); // Hacer visible el marco después de agregar todos los componentes
     }
 
     public static GUI getInstance() {
