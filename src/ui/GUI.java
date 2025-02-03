@@ -1,13 +1,9 @@
 package ui;
 
 import javax.swing.*;
-
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatAtomOneDarkIJTheme;
-
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
 import BusinessLogic.Entities.Usuario.Medico;
 import BusinessLogic.Entities.Usuario.Paciente;
-
 import java.awt.*;
 
 public class GUI {
