@@ -93,6 +93,7 @@ public class GUI {
 
     public void showMedicoScreen(Medico medico) {
         MedicoPanel medicoPanel = new MedicoPanel(medico);
+        estilizarComponentes(medicoPanel);
         mainPanel.add(medicoPanel, "medico");
         cardLayout.show(mainPanel, "medico");
     }
