@@ -100,8 +100,8 @@ public class GUI {
 
     public void showRegistrarScreen() {
         RegistrarPanel registrarPanel = new RegistrarPanel();
+        estilizarComponentes(registrarPanel);
         mainPanel.add(registrarPanel, "registrar");
         cardLayout.show(mainPanel, "registrar");
-        frame.setVisible(true);
     }
 }
