@@ -42,9 +42,9 @@ public class GUI {
 
     public void showLoginScreen() {
         LoginPanel loginPanel = new LoginPanel();
+        estilizarComponentes(loginPanel);
         mainPanel.add(loginPanel, "login");
         cardLayout.show(mainPanel, "login");
-        frame.setVisible(true);
     }
 
     public void showOTPPanel() {
