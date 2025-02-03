@@ -13,7 +13,6 @@ public class GUI {
     private CardLayout cardLayout;
 
     private GUI() {
-        // Configuración del tema
         FlatMaterialDarkerIJTheme.setup();
         FlatMaterialDarkerIJTheme.supportsNativeWindowDecorations();
         try {
@@ -28,12 +27,10 @@ public class GUI {
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.setBackground(new Color(10, 25, 50)); // Fondo azul oscuro
+        mainPanel.setBackground(new Color(10, 25, 50));
         frame.add(mainPanel, BorderLayout.CENTER);
-
-        // Mostrar la pantalla de inicio de sesión al iniciar
         showLoginScreen();
-        frame.setVisible(true); // Hacer visible el marco después de agregar todos los componentes
+        frame.setVisible(true); 
     }
 
     public static GUI getInstance() {
