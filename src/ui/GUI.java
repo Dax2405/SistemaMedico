@@ -78,8 +78,9 @@ public class GUI {
         cardLayout.show(mainPanel, "paciente");
     }
 
-    public void showRegitrarTurnoScreen(Paciente paciente) {
+    public void showRegistrarTurnoScreen(Paciente paciente) {
         RegistrarTurnoPanel registrarTurnoPanel = new RegistrarTurnoPanel(paciente);
+        estilizarComponentes(registrarTurnoPanel);
         mainPanel.add(registrarTurnoPanel, "registrarTurno");
         cardLayout.show(mainPanel, "registrarTurno");
     }
