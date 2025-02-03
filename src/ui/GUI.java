@@ -66,6 +66,7 @@ public class GUI {
 
     public void showOTPPanel() {
         OTPPanel otpPanel = new OTPPanel();
+        estilizarComponentes(otpPanel);
         mainPanel.add(otpPanel, "otp");
         cardLayout.show(mainPanel, "otp");
     }
