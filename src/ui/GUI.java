@@ -64,7 +64,7 @@ public class GUI {
         }
     }
     
-    public void showOTPPanel() {
+   public void showOTPPanel() {
         OTPPanel otpPanel = new OTPPanel();
         estilizarComponentes(otpPanel);
         mainPanel.add(otpPanel, "otp");
@@ -87,10 +87,11 @@ public class GUI {
 
     public void showHistoriasClinicasScreen(Paciente paciente) {
         HistoriasClinicasPanel historiasClinicasPanel = new HistoriasClinicasPanel(paciente);
+        estilizarComponentes(historiasClinicasPanel);
         mainPanel.add(historiasClinicasPanel, "historiasClinicas");
         cardLayout.show(mainPanel, "historiasClinicas");
     }
-
+    
     public void showMedicoScreen(Medico medico) {
         MedicoPanel medicoPanel = new MedicoPanel(medico);
         estilizarComponentes(medicoPanel);
