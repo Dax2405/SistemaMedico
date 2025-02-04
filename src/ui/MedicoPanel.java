@@ -125,17 +125,18 @@ public class MedicoPanel extends JPanel {
         gbc.gridy = 0;
         add(historiaClinicaPanel, gbc);
 
-        // Panel de receta de medicamentos
+       // Panel de receta de medicamentos
         JPanel recetaPanel = new JPanel(new GridBagLayout());
         GridBagConstraints recetaGbc = new GridBagConstraints();
         recetaGbc.insets = new Insets(5, 5, 5, 5);
         recetaGbc.fill = GridBagConstraints.HORIZONTAL;
-
+    
         JLabel medicamentoLabel = new JLabel("Medicamento:");
+        medicamentoLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         recetaGbc.gridx = 0;
         recetaGbc.gridy = 0;
         recetaPanel.add(medicamentoLabel, recetaGbc);
-
+    
         medicamentoComboBox = new JComboBox<>();
         recetaGbc.gridx = 1;
         recetaPanel.add(medicamentoComboBox, recetaGbc);
