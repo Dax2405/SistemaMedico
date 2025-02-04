@@ -141,15 +141,33 @@ public class MedicoPanel extends JPanel {
         recetaGbc.gridx = 1;
         recetaPanel.add(medicamentoComboBox, recetaGbc);
 
-        JLabel indicacionesLabel = new JLabel("Indicaciones:");
+         JLabel indicacionesLabel = new JLabel("Indicaciones:");
+        indicacionesLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         recetaGbc.gridx = 0;
         recetaGbc.gridy = 1;
         recetaPanel.add(indicacionesLabel, recetaGbc);
-
+    
         indicacionesField = new JTextField(20);
         recetaGbc.gridx = 1;
         recetaPanel.add(indicacionesField, recetaGbc);
-
+        recetarButton = new JButton("Recetar");
+        recetarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        recetarButton.setBackground(Color.WHITE);
+        recetarButton.setForeground(new Color(0, 128, 0)); // Letras verdes
+        recetaGbc.gridx = 0;
+        recetaGbc.gridy = 2;
+        recetaGbc.gridwidth = 2;
+        recetaPanel.add(recetarButton, recetaGbc);
+    
+        gbc.gridx = 2;
+        gbc.gridy = 2; // Fila 2 para el panel de receta (debajo del título)
+        add(recetaPanel, gbc);
+        loadingLabel = new JLabel("Cargando...");
+        loadingLabel.setVisible(false);
+        gbc.gridx = 1;
+        gbc.gridy = 3; // Fila 3 para el loading label
+        add(loadingLabel, gbc);
+    
         recetarButton = new JButton("Recetar");
         recetaGbc.gridx = 0;
         recetaGbc.gridy = 2;
@@ -159,8 +177,6 @@ public class MedicoPanel extends JPanel {
         gbc.gridx = 2;
         gbc.gridy = 0;
         add(recetaPanel, gbc);
-
-        // Loading label
         loadingLabel = new JLabel("Cargando...");
         loadingLabel.setVisible(false);
         gbc.gridx = 1;
