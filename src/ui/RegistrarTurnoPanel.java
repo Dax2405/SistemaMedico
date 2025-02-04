@@ -47,50 +47,67 @@ public class RegistrarTurnoPanel extends JPanel {
 
     public RegistrarTurnoPanel(Paciente paciente) {
         this.paciente = paciente;
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout());
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setOpaque(false); 
+
+        JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        logoPanel.setOpaque(false);
+        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
+                .getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+        JLabel logoLabel = new JLabel(logoIcon);
+
+        JLabel titleLabel = new JLabel("SmartTurn");
+        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 40));
+        titleLabel.setForeground(Color.WHITE);
+        logoPanel.add(logoLabel);
+        logoPanel.add(titleLabel);
+        headerPanel.add(logoPanel, BorderLayout.WEST);
+        add(headerPanel, BorderLayout.NORTH);
+
+        JPanel formPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Aumentar los márgenes
+        gbc.insets = new Insets(10, 10, 10, 10); 
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Título
         JLabel tituloLabel = new JLabel("Registrar Turno");
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 28)); // Aumentar el tamaño de la fuente
+        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 70)); 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 0, 30, 0); // Aumentar los márgenes
-        add(tituloLabel, gbc);
+        gbc.insets = new Insets(20, 0, 30, 0); 
+        formPanel.add(tituloLabel, gbc);
 
-        gbc.insets = new Insets(10, 10, 10, 10); // Restablecer los márgenes
+        gbc.insets = new Insets(10, 10, 10, 10); 
 
         JLabel especialidadLabel = new JLabel("Especialidad:");
-        especialidadLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        especialidadLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
-        add(especialidadLabel, gbc);
+        formPanel.add(especialidadLabel, gbc);
 
         especialidadComboBox = new JComboBox<>();
-        especialidadComboBox.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        especialidadComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
         gbc.gridx = 1;
-        add(especialidadComboBox, gbc);
+        formPanel.add(especialidadComboBox, gbc);
 
         JLabel medicoLabel = new JLabel("Médico:");
-        medicoLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        medicoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        add(medicoLabel, gbc);
+        formPanel.add(medicoLabel, gbc);
 
         medicoComboBox = new JComboBox<>();
-        medicoComboBox.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        medicoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
         gbc.gridx = 1;
-        add(medicoComboBox, gbc);
+        formPanel.add(medicoComboBox, gbc);
 
         JLabel fechaLabel = new JLabel("Fecha:");
-        fechaLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        fechaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        add(fechaLabel, gbc);
+        formPanel.add(fechaLabel, gbc);
 
         SqlDateModel model = new SqlDateModel();
         Properties p = new Properties();
@@ -99,70 +116,75 @@ public class RegistrarTurnoPanel extends JPanel {
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        datePicker.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        datePicker.setFont(new Font("Cambria", Font.PLAIN, 14)); 
 
         gbc.gridx = 1;
-        add(datePicker, gbc);
+        formPanel.add(datePicker, gbc);
 
         JLabel horaLabel = new JLabel("Hora:");
-        horaLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        horaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        add(horaLabel, gbc);
+        formPanel.add(horaLabel, gbc);
 
         SpinnerDateModel timeModel = new SpinnerDateModel();
         timeSpinner = new JSpinner(timeModel);
         JSpinner.DateEditor timeEditor = new JSpinner.DateEditor(timeSpinner, "HH:mm");
         timeSpinner.setEditor(timeEditor);
-        timeSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
+        timeSpinner.setFont(new Font("Cambria", Font.PLAIN, 14));
         timeSpinner.setValue(new Date());
         gbc.gridx = 1;
-        add(timeSpinner, gbc);
+        formPanel.add(timeSpinner, gbc);
 
         generarTurnoButton = new JButton("Generar Turno");
-        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14)); // Aumentar el tamaño de la fuente
+        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14)); 
+        generarTurnoButton.setBackground(Color.WHITE); // Fondo blanco
+        generarTurnoButton.setForeground(new Color(0, 128, 0)); // Texto verde
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
-        add(generarTurnoButton, gbc);
+        formPanel.add(generarTurnoButton, gbc);
 
         loadingLabel = new JLabel("Cargando...");
-        loadingLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        loadingLabel.setFont(new Font("Cambria", Font.PLAIN, 14)); 
         loadingLabel.setVisible(false);
         gbc.gridy = 6;
-        add(loadingLabel, gbc);
+        formPanel.add(loadingLabel, gbc);
 
         metodoPagoLabel = new JLabel("Método de Pago:");
-        metodoPagoLabel.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        metodoPagoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
         gbc.gridx = 0;
         gbc.gridy = 7;
-        add(metodoPagoLabel, gbc);
+        formPanel.add(metodoPagoLabel, gbc);
 
         metodoPagoComboBox = new JComboBox<>();
-        metodoPagoComboBox.setFont(new Font("Arial", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
+        metodoPagoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
         gbc.gridx = 1;
-        add(metodoPagoComboBox, gbc);
+        formPanel.add(metodoPagoComboBox, gbc);
 
         pagarButton = new JButton("Pagar");
-        pagarButton.setFont(new Font("Arial", Font.BOLD, 14)); // Aumentar el tamaño de la fuente
+        pagarButton.setFont(new Font("Cambria", Font.BOLD, 20)); 
+        pagarButton.setBackground(Color.WHITE); // Fondo blanco
+        pagarButton.setForeground(new Color(0, 128, 0)); // Texto verde
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
-        add(pagarButton, gbc);
+        formPanel.add(pagarButton, gbc);
 
-        // Inicialmente ocultar el selector de método de pago y el botón de pagar
         metodoPagoLabel.setVisible(false);
         metodoPagoComboBox.setVisible(false);
         pagarButton.setVisible(false);
 
         JButton regresarButton = new JButton("Regresar");
-        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        regresarButton.setBackground(Color.WHITE); // Fondo blanco
+        regresarButton.setForeground(new Color(0, 128, 0)); // Texto verde
         GridBagConstraints gbcRegresar = new GridBagConstraints();
         gbcRegresar.gridx = 0;
         gbcRegresar.gridy = 9;
         gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
-        gbcRegresar.insets = new Insets(10, 10, 10, 10); // Añadir márgenes para mejor visualización
-        add(regresarButton, gbcRegresar);
+        gbcRegresar.insets = new Insets(10, 10, 10, 10); 
+        formPanel.add(regresarButton, gbcRegresar);
 
         regresarButton.addActionListener(new ActionListener() {
             @Override
@@ -170,6 +192,8 @@ public class RegistrarTurnoPanel extends JPanel {
                 GUI.getInstance().showPacienteScreen(paciente);
             }
         });
+
+        add(formPanel, BorderLayout.CENTER);
 
         cargarEspecialidades();
 
@@ -328,7 +352,6 @@ public class RegistrarTurnoPanel extends JPanel {
                     for (PagoMetodoDTO metodo : metodosPago) {
                         metodoPagoComboBox.addItem(metodo.getNombreMetodo());
                     }
-                    // Mostrar el selector de método de pago y el botón de pagar
                     metodoPagoLabel.setVisible(true);
                     metodoPagoComboBox.setVisible(true);
                     pagarButton.setVisible(true);
