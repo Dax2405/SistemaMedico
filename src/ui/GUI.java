@@ -1,7 +1,7 @@
 package ui;
 
 import javax.swing.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDarkerIJTheme;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
 import BusinessLogic.Entities.Usuario.Medico;
 import BusinessLogic.Entities.Usuario.Paciente;
 import java.awt.*;
@@ -13,10 +13,11 @@ public class GUI {
     private CardLayout cardLayout;
 
     private GUI() {
-        FlatMaterialDarkerIJTheme.setup();
-        FlatMaterialDarkerIJTheme.supportsNativeWindowDecorations();
+        // Configuración del tema
+        FlatMaterialDeepOceanIJTheme.setup();
+        FlatMaterialDeepOceanIJTheme.supportsNativeWindowDecorations();
         try {
-            UIManager.setLookAndFeel(new FlatMaterialDarkerIJTheme());
+            UIManager.setLookAndFeel(new FlatMaterialDeepOceanIJTheme());
         } catch (Exception e) {
             System.out.println("Error setting theme");
         }
@@ -27,12 +28,13 @@ public class GUI {
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.setBackground(new Color(10, 25, 50));
         frame.add(mainPanel, BorderLayout.CENTER);
-        showLoginScreen();
-        frame.setVisible(true); 
-    }
 
+        // Mostrar la pantalla de inicio de sesión al iniciar
+        showLoginScreen();
+        frame.setVisible(true); // Hacer visible el marco después de agregar todos los componentes
+    }
+    
     public static GUI getInstance() {
         if (instance == null) {
             instance = new GUI();
