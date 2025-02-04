@@ -32,7 +32,7 @@ public class GUI {
         showLoginScreen();
         frame.setVisible(true); 
     }
-    
+
     public static GUI getInstance() {
         if (instance == null) {
             instance = new GUI();
@@ -57,14 +57,14 @@ public class GUI {
                 c.setForeground(Color.WHITE); 
                 ((JLabel) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
             } else if (c instanceof JTextField || c instanceof JPasswordField) {
-                c.setBackground(new Color(20, 40, 70)); 
+                c.setBackground(new Color(20, 40, 70));
                 c.setForeground(Color.WHITE); 
                 ((JTextField) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
             }
         }
     }
-    
-   public void showOTPPanel() {
+
+    public void showOTPPanel() {
         OTPPanel otpPanel = new OTPPanel();
         estilizarComponentes(otpPanel);
         mainPanel.add(otpPanel, "otp");
@@ -91,7 +91,7 @@ public class GUI {
         mainPanel.add(historiasClinicasPanel, "historiasClinicas");
         cardLayout.show(mainPanel, "historiasClinicas");
     }
-    
+
     public void showMedicoScreen(Medico medico) {
         MedicoPanel medicoPanel = new MedicoPanel(medico);
         estilizarComponentes(medicoPanel);
