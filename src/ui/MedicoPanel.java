@@ -183,19 +183,23 @@ public class MedicoPanel extends JPanel {
         gbc.gridy = 1;
         add(loadingLabel, gbc);
 
-        // Botón de regresar
+                // Botón de regresar
         JButton regresarButton = new JButton("Regresar");
-        regresarButton.setFont(new Font("Arial", Font.PLAIN, 12));
+        regresarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        regresarButton.setBackground(Color.WHITE);
+        regresarButton.setForeground(new Color(0, 128, 0)); // Letras verdes
+        regresarButton.setPreferredSize(seleccionarButton.getPreferredSize()); // Igualar el tamaño al botón "Seleccionar"
+
         GridBagConstraints gbcRegresar = new GridBagConstraints();
         gbcRegresar.gridx = 0;
         gbcRegresar.gridy = 0;
         gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
-        gbcRegresar.insets = new Insets(10, 10, 10, 10); // Añadir márgenes para mejor visualización
+        gbcRegresar.insets = new Insets(10, 10, 10, 10);
         JPanel panelBoton = new JPanel(new FlowLayout(FlowLayout.LEFT));
         panelBoton.add(regresarButton);
 
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 4; // Fila 4 para el botón de regresar
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.WEST;
         add(panelBoton, gbc);
@@ -206,7 +210,7 @@ public class MedicoPanel extends JPanel {
                 GUI.getInstance().showLoginScreen();
             }
         });
-
+        
         cargarPacientes();
         cargarMedicamentos();
 
