@@ -39,8 +39,21 @@ public class MedicoPanel extends JPanel {
         this.medico = medico;
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
         gbc.fill = GridBagConstraints.HORIZONTAL;
+    
+        // Cargar el logo y escalarlo
+        ImageIcon logoIcon = new ImageIcon(getClass().getResource("/ui/media/SmartTurnLogo.png"));
+        Image logoImage = logoIcon.getImage().getScaledInstance(300, -1, Image.SCALE_SMOOTH); // Escalar a 200px de ancho
+        logoIcon = new ImageIcon(logoImage);
+        JLabel logoLabel = new JLabel(logoIcon);
+    
+        // Configurar GridBagConstraints para el logo
+        gbc.gridx = 0;
+        gbc.gridy = 0; // Fila 0 para el logo
+        gbc.gridwidth = 3; // Ocupa 3 columnas
+        gbc.anchor = GridBagConstraints.CENTER; // Centrar el logo
+        add(logoLabel, gbc);
 
         // Panel de selección de paciente y turno
         JPanel seleccionPanel = new JPanel(new GridBagLayout());
