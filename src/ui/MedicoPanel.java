@@ -301,7 +301,6 @@ public class MedicoPanel extends JPanel {
             }
         }.execute();
     }
-
     private void seleccionarPacienteYTurno() {
         int selectedPacienteIndex = pacienteComboBox.getSelectedIndex();
         int selectedTurnoIndex = turnoComboBox.getSelectedIndex();
