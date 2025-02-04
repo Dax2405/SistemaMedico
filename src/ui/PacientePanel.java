@@ -73,7 +73,6 @@ public class PacientePanel extends JPanel {
         regresarButton.setForeground(new Color(0, 100, 0)); 
         buttonPanel.add(regresarButton, gbc);
 
-        // Listeners para los botones
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -94,7 +93,7 @@ public class PacientePanel extends JPanel {
                 showHistoriasClinicas();
             }
         });
-        
+
         add(welcomePanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
     }
