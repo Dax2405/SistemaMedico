@@ -71,22 +71,24 @@ public class MedicoPanel extends JPanel {
         seleccionPanel.add(pacienteComboBox, seleccionGbc);
         
         JLabel turnoLabel = new JLabel("Turno:");
+        turnoLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 1;
         seleccionPanel.add(turnoLabel, seleccionGbc);
-
         turnoComboBox = new JComboBox<>();
         seleccionGbc.gridx = 1;
         seleccionPanel.add(turnoComboBox, seleccionGbc);
-
         seleccionarButton = new JButton("Seleccionar");
+        seleccionarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        seleccionarButton.setBackground(Color.WHITE);
+        seleccionarButton.setForeground(new Color(0, 128, 0)); // Letras verdes
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 2;
         seleccionGbc.gridwidth = 2;
         seleccionPanel.add(seleccionarButton, seleccionGbc);
-
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 2; // Fila 2 para el panel de selección (debajo del título)
+        gbc.gridwidth = 1; // Restablecer gridwidth
         add(seleccionPanel, gbc);
 
         // Panel de creación de historia clínica
