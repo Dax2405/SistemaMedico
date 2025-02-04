@@ -1,22 +1,21 @@
 package ui;
 
 import BusinessLogic.BLFactory;
+import BusinessLogic.Entities.RecetaMedica.Medicamento;
 import BusinessLogic.Entities.Turno.Turno;
 import BusinessLogic.Entities.Usuario.Medico;
 import BusinessLogic.Entities.Usuario.Paciente;
-import BusinessLogic.Entities.RecetaMedica.Medicamento;
 import DataAccess.DAO.MedicamentoDAO;
 import DataAccess.DAO.PacienteDAO;
 import DataAccess.DAO.TurnoDAO;
 import DataAccess.DTO.MedicamentoDTO;
 import DataAccess.DTO.PacienteDTO;
 import DataAccess.DTO.TurnoDTO;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.*;
 
 public class MedicoPanel extends JPanel {
     private Medico medico;
