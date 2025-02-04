@@ -163,33 +163,11 @@ public class LoginPanel extends JPanel {
         }
     }
 
-    private void mostrarCargando() {
-        loadingLabel.setVisible(true);
-    }
-
-    private void ocultarCargando() {
-        loadingLabel.setVisible(false);
-    }
-
-    private Usuario autenticarCredenciales() throws Exception {
-        String email = emailField.getText();
-        String password = new String(passwordField.getPassword());
-        if (email.isEmpty() || password.isEmpty()) {
-            throw new Exception("Por favor, ingrese su email y contraseña.");
-        }
-        return AutenticacionCredenciales.autenticar(email, password);
-    }
-
-    private Usuario autenticarFacial() throws Exception {
-        return AutenticacionFacial.autenticar();
-    }
-
-    private void autenticarOTP() throws Exception {
-        String email = emailField.getText();
-        if (email.isEmpty()) {
-            throw new Exception("Por favor, ingrese su email.");
-        }
-        if (AutenticacionOTP.autenticar(email)) {
-            GUI.getInstance().showOTPPanel();
+    private void manejarAutenticacion(Usuario usuario) {
+        if (usuario instanceof Paciente) {
+            GUI.getInstance().showPacienteScreen((Paciente) usuario);
+        } else if (usuario instanceof Medico) {
+            GUI.getInstance().showMedicoScreen((Medico) usuario);
         }
     }
+}
