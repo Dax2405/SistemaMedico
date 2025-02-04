@@ -19,22 +19,16 @@ public class HistoriasClinicasPanel extends JPanel {
         this.paciente = paciente;
         setLayout(new BorderLayout());
 
-        // Panel para el logo y el título en la esquina superior izquierda
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        // Reducir el tamaño del logo
         ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage().getScaledInstance(150, 140, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
 
-        // Reducir el tamaño del título
         JLabel titleLabel = new JLabel("SmartTurn");
         titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); // Tamaño de fuente más pequeño
         titleLabel.setForeground(Color.WHITE); // Texto en blanco
 
-        // Agregar logo y título al panel
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
-
         add(headerPanel, BorderLayout.NORTH);
         String[] columnNames = { "Diagnóstico", "Tratamiento", "Médico" };
         tableModel = new DefaultTableModel(columnNames, 0);
@@ -51,16 +45,16 @@ public class HistoriasClinicasPanel extends JPanel {
         table.setFillsViewportHeight(true);
 
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Cambria", Font.BOLD, 30)); // Fuente del encabezado
-        header.setBackground(new Color(10, 25, 50)); // Fondo del encabezado
-        header.setForeground(Color.WHITE); // Texto del encabezado
-
+        header.setFont(new Font("Cambria", Font.BOLD, 30)); 
+        header.setBackground(new Color(10, 25, 50)); 
+        header.setForeground(Color.WHITE); 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
+
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Se", Font.BOLD, 14));
-        regresarButton.setBackground(Color.WHITE); // Fondo blanco
-        regresarButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
+        regresarButton.setBackground(Color.WHITE); 
+        regresarButton.setForeground(new Color(0, 100, 0)); 
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -75,7 +69,6 @@ public class HistoriasClinicasPanel extends JPanel {
         cargarHistoriasClinicas();
     }
 
-    
     private void cargarHistoriasClinicas() {
         ArrayList<HistoriaClinica> historiasClinica = paciente.getHistoriasClinica();
         for (HistoriaClinica historia : historiasClinica) {
@@ -86,5 +79,4 @@ public class HistoriasClinicasPanel extends JPanel {
             tableModel.addRow(rowData);
         }
     }
-}
 }
