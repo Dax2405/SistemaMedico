@@ -96,12 +96,12 @@ public class MedicoPanel extends JPanel {
         GridBagConstraints historiaGbc = new GridBagConstraints();
         historiaGbc.insets = new Insets(5, 5, 5, 5);
         historiaGbc.fill = GridBagConstraints.HORIZONTAL;
-
+    
         JLabel diagnosticoLabel = new JLabel("Diagnóstico:");
+        diagnosticoLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         historiaGbc.gridx = 0;
         historiaGbc.gridy = 0;
         historiaClinicaPanel.add(diagnosticoLabel, historiaGbc);
-
         diagnosticoField = new JTextField(20);
         historiaGbc.gridx = 1;
         historiaClinicaPanel.add(diagnosticoField, historiaGbc);
