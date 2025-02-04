@@ -54,7 +54,7 @@ public class MedicoPanel extends JPanel {
         gbc.gridwidth = 3; // Ocupa 3 columnas
         gbc.anchor = GridBagConstraints.CENTER; // Centrar el logo
         add(logoLabel, gbc);
-
+    
         // Panel de selección de paciente y turno
         JPanel seleccionPanel = new JPanel(new GridBagLayout());
         GridBagConstraints seleccionGbc = new GridBagConstraints();
@@ -66,18 +66,21 @@ public class MedicoPanel extends JPanel {
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 0;
         seleccionPanel.add(pacienteLabel, seleccionGbc);
+    
         pacienteComboBox = new JComboBox<>();
         seleccionGbc.gridx = 1;
         seleccionPanel.add(pacienteComboBox, seleccionGbc);
-        
+    
         JLabel turnoLabel = new JLabel("Turno:");
         turnoLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 1;
         seleccionPanel.add(turnoLabel, seleccionGbc);
+    
         turnoComboBox = new JComboBox<>();
         seleccionGbc.gridx = 1;
         seleccionPanel.add(turnoComboBox, seleccionGbc);
+    
         seleccionarButton = new JButton("Seleccionar");
         seleccionarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         seleccionarButton.setBackground(Color.WHITE);
@@ -86,11 +89,12 @@ public class MedicoPanel extends JPanel {
         seleccionGbc.gridy = 2;
         seleccionGbc.gridwidth = 2;
         seleccionPanel.add(seleccionarButton, seleccionGbc);
+    
         gbc.gridx = 0;
         gbc.gridy = 2; // Fila 2 para el panel de selección (debajo del título)
         gbc.gridwidth = 1; // Restablecer gridwidth
         add(seleccionPanel, gbc);
-
+    
         // Panel de creación de historia clínica
         JPanel historiaClinicaPanel = new JPanel(new GridBagLayout());
         GridBagConstraints historiaGbc = new GridBagConstraints();
@@ -102,30 +106,35 @@ public class MedicoPanel extends JPanel {
         historiaGbc.gridx = 0;
         historiaGbc.gridy = 0;
         historiaClinicaPanel.add(diagnosticoLabel, historiaGbc);
+    
         diagnosticoField = new JTextField(20);
         historiaGbc.gridx = 1;
         historiaClinicaPanel.add(diagnosticoField, historiaGbc);
-
+    
         JLabel tratamientoLabel = new JLabel("Tratamiento:");
+        tratamientoLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         historiaGbc.gridx = 0;
         historiaGbc.gridy = 1;
         historiaClinicaPanel.add(tratamientoLabel, historiaGbc);
-
+    
         tratamientoField = new JTextField(20);
         historiaGbc.gridx = 1;
         historiaClinicaPanel.add(tratamientoField, historiaGbc);
-
+    
         crearHistoriaClinicaButton = new JButton("Crear Historia Clínica");
+        crearHistoriaClinicaButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        crearHistoriaClinicaButton.setBackground(Color.WHITE);
+        crearHistoriaClinicaButton.setForeground(new Color(0, 128, 0)); // Letras verdes
         historiaGbc.gridx = 0;
         historiaGbc.gridy = 2;
         historiaGbc.gridwidth = 2;
         historiaClinicaPanel.add(crearHistoriaClinicaButton, historiaGbc);
-
+    
         gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridy = 2; // Fila 2 para el panel de historia clínica (debajo del título)
         add(historiaClinicaPanel, gbc);
-
-       // Panel de receta de medicamentos
+    
+        // Panel de receta de medicamentos
         JPanel recetaPanel = new JPanel(new GridBagLayout());
         GridBagConstraints recetaGbc = new GridBagConstraints();
         recetaGbc.insets = new Insets(5, 5, 5, 5);
@@ -140,8 +149,8 @@ public class MedicoPanel extends JPanel {
         medicamentoComboBox = new JComboBox<>();
         recetaGbc.gridx = 1;
         recetaPanel.add(medicamentoComboBox, recetaGbc);
-
-         JLabel indicacionesLabel = new JLabel("Indicaciones:");
+    
+        JLabel indicacionesLabel = new JLabel("Indicaciones:");
         indicacionesLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         recetaGbc.gridx = 0;
         recetaGbc.gridy = 1;
@@ -150,6 +159,7 @@ public class MedicoPanel extends JPanel {
         indicacionesField = new JTextField(20);
         recetaGbc.gridx = 1;
         recetaPanel.add(indicacionesField, recetaGbc);
+    
         recetarButton = new JButton("Recetar");
         recetarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         recetarButton.setBackground(Color.WHITE);
@@ -162,28 +172,15 @@ public class MedicoPanel extends JPanel {
         gbc.gridx = 2;
         gbc.gridy = 2; // Fila 2 para el panel de receta (debajo del título)
         add(recetaPanel, gbc);
+    
+        // Loading label
         loadingLabel = new JLabel("Cargando...");
         loadingLabel.setVisible(false);
         gbc.gridx = 1;
         gbc.gridy = 3; // Fila 3 para el loading label
         add(loadingLabel, gbc);
     
-        recetarButton = new JButton("Recetar");
-        recetaGbc.gridx = 0;
-        recetaGbc.gridy = 2;
-        recetaGbc.gridwidth = 2;
-        recetaPanel.add(recetarButton, recetaGbc);
-
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        add(recetaPanel, gbc);
-        loadingLabel = new JLabel("Cargando...");
-        loadingLabel.setVisible(false);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        add(loadingLabel, gbc);
-
-                // Botón de regresar
+        // Botón de regresar
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
         regresarButton.setBackground(Color.WHITE);
@@ -210,7 +207,7 @@ public class MedicoPanel extends JPanel {
                 GUI.getInstance().showLoginScreen();
             }
         });
-        
+
         cargarPacientes();
         cargarMedicamentos();
 
@@ -242,6 +239,7 @@ public class MedicoPanel extends JPanel {
             }
         });
     }
+
     private void cargarPacientes() {
         mostrarCargando();
         new SwingWorker<List<PacienteDTO>, Void>() {
@@ -301,6 +299,7 @@ public class MedicoPanel extends JPanel {
             }
         }.execute();
     }
+
     private void seleccionarPacienteYTurno() {
         int selectedPacienteIndex = pacienteComboBox.getSelectedIndex();
         int selectedTurnoIndex = turnoComboBox.getSelectedIndex();
