@@ -6,14 +6,13 @@ import DataAccess.DAO.MedicoEspecialidadDAO;
 import DataAccess.DAO.MedicoRolDAO;
 import DataAccess.DTO.MedicoEspecialidadDTO;
 import DataAccess.DTO.MedicoRolDTO;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.*;
 
 public class RegistrarPanel extends JPanel {
     private JComboBox<String> tipoUsuarioComboBox;
@@ -36,25 +35,41 @@ public class RegistrarPanel extends JPanel {
 
     public RegistrarPanel() {
         setLayout(new BorderLayout());
+        JPanel headerPanel = new JPanel();
+        headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
+        headerPanel.setOpaque(false); 
 
-        // Selector de tipo de usuario
+        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
+                .getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+        JLabel logoLabel = new JLabel(logoIcon);
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+
+        JLabel titleLabel = new JLabel("SmartTurn");
+        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 40));
+        titleLabel.setForeground(Color.WHITE); 
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+
         JPanel tipoUsuarioPanel = new JPanel();
         tipoUsuarioPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         JLabel tipoUsuarioLabel = new JLabel("Tipo de Usuario:");
         tipoUsuarioComboBox = new JComboBox<>(new String[] { "Paciente", "Medico" });
         tipoUsuarioPanel.add(tipoUsuarioLabel);
         tipoUsuarioPanel.add(tipoUsuarioComboBox);
-        add(tipoUsuarioPanel, BorderLayout.NORTH);
+        headerPanel.add(Box.createVerticalStrut(10)); 
+        headerPanel.add(logoLabel);
+        headerPanel.add(titleLabel);
+        headerPanel.add(Box.createVerticalStrut(10));
+        headerPanel.add(tipoUsuarioPanel);
+        add(headerPanel, BorderLayout.NORTH);
 
-        // Panel de campos
         camposPanel = new JPanel();
         camposPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Campos comunes
         JLabel nombreLabel = new JLabel("Nombre:");
+        nombreLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 0;
         camposPanel.add(nombreLabel, gbc);
@@ -64,6 +79,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(nombreField, gbc);
 
         JLabel apellidoLabel = new JLabel("Apellido:");
+        apellidoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 1;
         camposPanel.add(apellidoLabel, gbc);
@@ -73,6 +89,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(apellidoField, gbc);
 
         JLabel telefonoLabel = new JLabel("Teléfono:");
+        telefonoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 2;
         camposPanel.add(telefonoLabel, gbc);
@@ -82,6 +99,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(telefonoField, gbc);
 
         JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 3;
         camposPanel.add(emailLabel, gbc);
@@ -91,6 +109,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(emailField, gbc);
 
         JLabel contraseñaLabel = new JLabel("Contraseña:");
+        contraseñaLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 4;
         camposPanel.add(contraseñaLabel, gbc);
@@ -99,8 +118,8 @@ public class RegistrarPanel extends JPanel {
         gbc.gridx = 1;
         camposPanel.add(contraseñaField, gbc);
 
-        // Campos específicos de paciente
         JLabel codigoUnicoLabel = new JLabel("Código Único:");
+        codigoUnicoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 5;
         camposPanel.add(codigoUnicoLabel, gbc);
@@ -110,6 +129,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(codigoUnicoField, gbc);
 
         JLabel fechaNacimientoLabel = new JLabel("Fecha de Nacimiento:");
+        fechaNacimientoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 6;
         camposPanel.add(fechaNacimientoLabel, gbc);
@@ -119,6 +139,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(fechaNacimientoField, gbc);
 
         JLabel direccionLabel = new JLabel("Dirección:");
+        direccionLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 7;
         camposPanel.add(direccionLabel, gbc);
@@ -127,8 +148,8 @@ public class RegistrarPanel extends JPanel {
         gbc.gridx = 1;
         camposPanel.add(direccionField, gbc);
 
-        // Campos específicos de médico
         JLabel especialidadLabel = new JLabel("Especialidad:");
+        especialidadLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 8;
         camposPanel.add(especialidadLabel, gbc);
@@ -138,6 +159,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(especialidadComboBox, gbc);
 
         JLabel rolLabel = new JLabel("Rol:");
+        rolLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 0;
         gbc.gridy = 9;
         camposPanel.add(rolLabel, gbc);
@@ -146,28 +168,28 @@ public class RegistrarPanel extends JPanel {
         gbc.gridx = 1;
         camposPanel.add(rolComboBox, gbc);
 
-        add(camposPanel, BorderLayout.CENTER);
-
-        // Botón de registrar
         registrarButton = new JButton("Registrar");
+        registrarButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        registrarButton.setBackground(Color.WHITE); // Fondo blanco
+        registrarButton.setForeground(new Color(0, 128, 0)); // Texto verde
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.gridwidth = 2;
         camposPanel.add(registrarButton, gbc);
-
-        // Loading label
         loadingLabel = new JLabel("Cargando...");
         loadingLabel.setVisible(false);
         gbc.gridy = 11;
         camposPanel.add(loadingLabel, gbc);
 
         regresarButton = new JButton("Regresar");
+        regresarButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        regresarButton.setBackground(Color.WHITE); 
+        regresarButton.setForeground(new Color(0, 128, 0)); 
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.gridwidth = 2;
         camposPanel.add(regresarButton, gbc);
-
-        // Listeners
+        add(camposPanel, BorderLayout.CENTER);
         tipoUsuarioComboBox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -189,7 +211,6 @@ public class RegistrarPanel extends JPanel {
             }
         });
 
-        // Inicializar campos
         actualizarCampos();
     }
 
@@ -263,13 +284,11 @@ public class RegistrarPanel extends JPanel {
     }
 
     public Boolean validarContrasena(String contraseña) throws Exception {
-        // Expresión regular para validar la contraseña
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        String regex = "^(?=.[a-z])(?=.[A-Z])(?=.\\d)(?=.[@$!%?&])[A-Za-z\\d@$!%?&]{8,}$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(contraseña);
 
         return matcher.matches();
-
     }
 
     private void registrarUsuario() {
@@ -287,7 +306,6 @@ public class RegistrarPanel extends JPanel {
                 if (nombre.isEmpty() || apellido.isEmpty() || telefono.isEmpty() || email.isEmpty()
                         || contraseña.isEmpty()) {
                     throw new Exception("Todos los campos son obligatorios.");
-
                 }
                 if (!validarContrasena(contraseña)) {
                     throw new Exception(
