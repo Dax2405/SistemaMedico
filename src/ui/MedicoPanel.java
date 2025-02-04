@@ -60,16 +60,16 @@ public class MedicoPanel extends JPanel {
         GridBagConstraints seleccionGbc = new GridBagConstraints();
         seleccionGbc.insets = new Insets(5, 5, 5, 5);
         seleccionGbc.fill = GridBagConstraints.HORIZONTAL;
-
+    
         JLabel pacienteLabel = new JLabel("Paciente:");
+        pacienteLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 0;
         seleccionPanel.add(pacienteLabel, seleccionGbc);
-
         pacienteComboBox = new JComboBox<>();
         seleccionGbc.gridx = 1;
         seleccionPanel.add(pacienteComboBox, seleccionGbc);
-
+        
         JLabel turnoLabel = new JLabel("Turno:");
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 1;
