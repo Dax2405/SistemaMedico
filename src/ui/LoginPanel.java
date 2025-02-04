@@ -131,6 +131,55 @@ public class LoginPanel extends JPanel {
         otpButton.addActionListener(this::handleOTP);
         registrarButton.addActionListener(e -> GUI.getInstance().showRegistrarScreen());
     }
+    
+    private void handleFacial(ActionEvent e) {
+        mostrarCargando();
+        new SwingWorker<Usuario, Void>() {
+            @Override
+            protected Usuario doInBackground() throws Exception {
+                return autenticarFacial();
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    Usuario usuario = get();
+                    manejarAutenticacion(usuario);
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(LoginPanel.this, ex.getMessage());
+                } finally {
+                    ocultarCargando();
+                }
+            }
+        }.execute();
+    }
+
+    private void handleOTP(ActionEvent e) {
+        mostrarCargando();
+        try {
+            autenticarOTP();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(LoginPanel.this, ex.getMessage());
+        }
+    }
+
+    private void mostrarCargando() {
+        loadingLabel.setVisible(true);
+    }
+
+    private void ocultarCargando() {
+        loadingLabel.setVisible(false);
+    }
+
+    private Usuario autenticarCredenciales() throws Exception {
+        String email = emailField.getText();
+        String password = new String(passwordField.getPassword());
+        if (email.isEmpty() || password.isEmpty()) {
+            throw new Exception("Por favor, ingrese su email y contraseña.");
+        }
+        return AutenticacionCredenciales.autenticar(email, password);
+    }
+
     private Usuario autenticarFacial() throws Exception {
         return AutenticacionFacial.autenticar();
     }
@@ -144,12 +193,3 @@ public class LoginPanel extends JPanel {
             GUI.getInstance().showOTPPanel();
         }
     }
-
-    private void manejarAutenticacion(Usuario usuario) {
-        if (usuario instanceof Paciente) {
-            GUI.getInstance().showPacienteScreen((Paciente) usuario);
-        } else if (usuario instanceof Medico) {
-            GUI.getInstance().showMedicoScreen((Medico) usuario);
-        }
-    }
-}
