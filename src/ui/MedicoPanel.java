@@ -242,7 +242,6 @@ public class MedicoPanel extends JPanel {
             }
         });
     }
-
     private void cargarPacientes() {
         mostrarCargando();
         new SwingWorker<List<PacienteDTO>, Void>() {
