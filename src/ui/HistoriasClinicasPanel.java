@@ -75,6 +75,7 @@ public class HistoriasClinicasPanel extends JPanel {
         cargarHistoriasClinicas();
     }
 
+    
     private void cargarHistoriasClinicas() {
         ArrayList<HistoriaClinica> historiasClinica = paciente.getHistoriasClinica();
         for (HistoriaClinica historia : historiasClinica) {
@@ -85,5 +86,5 @@ public class HistoriasClinicasPanel extends JPanel {
             tableModel.addRow(rowData);
         }
     }
-
+}
 }
