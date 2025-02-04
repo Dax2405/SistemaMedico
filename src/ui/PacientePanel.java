@@ -94,7 +94,7 @@ public class PacientePanel extends JPanel {
                 showHistoriasClinicas();
             }
         });
-        // Agregar los paneles al panel principal
+        
         add(welcomePanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
     }
