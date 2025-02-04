@@ -65,7 +65,7 @@ public class OTPPanel extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
     }
     
-    private void validarCodigoOTP() throws Exception {
+   private void validarCodigoOTP() throws Exception {
         String otp = otpField.getText();
         if (otp.isEmpty()) {
             throw new Exception("Codigo OTP no puede estar vacio");
