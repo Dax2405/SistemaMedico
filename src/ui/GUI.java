@@ -13,7 +13,6 @@ public class GUI {
     private CardLayout cardLayout;
 
     private GUI() {
-        // Configuración del tema
         FlatMaterialDeepOceanIJTheme.setup();
         FlatMaterialDeepOceanIJTheme.supportsNativeWindowDecorations();
         try {
@@ -30,9 +29,8 @@ public class GUI {
         mainPanel = new JPanel(cardLayout);
         frame.add(mainPanel, BorderLayout.CENTER);
 
-        // Mostrar la pantalla de inicio de sesión al iniciar
         showLoginScreen();
-        frame.setVisible(true); // Hacer visible el marco después de agregar todos los componentes
+        frame.setVisible(true); 
     }
     
     public static GUI getInstance() {
@@ -48,24 +46,24 @@ public class GUI {
         mainPanel.add(loginPanel, "login");
         cardLayout.show(mainPanel, "login");
     }
+
     private void estilizarComponentes(JPanel panel) {
-        panel.setBackground(new Color(10, 25, 50)); // Fondo para todos los paneles
         for (Component c : panel.getComponents()) {
             if (c instanceof JButton) {
-                c.setBackground(Color.WHITE); // Fondo para botones
-                c.setForeground(new Color(0, 100, 0)); // Texto verde 
+                c.setBackground(Color.WHITE); 
+                c.setForeground(new Color(0, 100, 0)); 
                 ((JButton) c).setFont(new Font("Segoe UI", Font.BOLD, 14)); 
             } else if (c instanceof JLabel) {
-                c.setForeground(Color.WHITE); // Texto para etiquetas
+                c.setForeground(Color.WHITE); 
                 ((JLabel) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
             } else if (c instanceof JTextField || c instanceof JPasswordField) {
                 c.setBackground(new Color(20, 40, 70)); 
-                c.setForeground(Color.WHITE); // Texto en blanco
+                c.setForeground(Color.WHITE); 
                 ((JTextField) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
             }
         }
     }
-
+    
     public void showOTPPanel() {
         OTPPanel otpPanel = new OTPPanel();
         estilizarComponentes(otpPanel);
