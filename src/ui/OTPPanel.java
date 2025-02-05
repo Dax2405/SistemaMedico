@@ -14,27 +14,21 @@ public class OTPPanel extends JPanel {
 
     public OTPPanel() {
         setLayout(new BorderLayout()); // Usamos BorderLayout para organizar los componentes
-
-        // Panel de encabezado para logo y título
+        
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-
-        // Reducir el tamaño del logo
+        
         ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage().getScaledInstance(150, 140, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
-
-        // Reducir el tamaño del título
+        
         JLabel titleLabel = new JLabel("SmartTurn");
         titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); // Tamaño de fuente más pequeño
         titleLabel.setForeground(Color.WHITE); // Texto en blanco
 
-        // Agregar logo y título al panel de encabezado
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
 
-        // Agregar el panel de encabezado en la parte superior
         add(headerPanel, BorderLayout.NORTH);
 
-        // Configuración del diseño principal
         JPanel mainPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -72,7 +66,6 @@ public class OTPPanel extends JPanel {
             }
         });
 
-        // Agregar el panel principal al centro
         add(mainPanel, BorderLayout.CENTER);
     }
 
