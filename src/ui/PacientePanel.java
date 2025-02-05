@@ -58,22 +58,22 @@ public class PacientePanel extends JPanel {
 
         JButton registrarTurnoButton = new JButton("Registrar Turno");
         registrarTurnoButton.setFont(new Font("Arial", Font.BOLD, 20));
-        registrarTurnoButton.setBackground(Color.WHITE); 
-        registrarTurnoButton.setForeground(new Color(0, 100, 0)); 
+        registrarTurnoButton.setBackground(Color.WHITE); // Fondo blanco
+        registrarTurnoButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
         buttonPanel.add(registrarTurnoButton, gbc);
 
         gbc.gridy = 1;
         JButton verHistoriasClinicasButton = new JButton("Ver Historias Clínicas");
         verHistoriasClinicasButton.setFont(new Font("Arial", Font.BOLD, 20));
-        verHistoriasClinicasButton.setBackground(Color.WHITE); 
-        verHistoriasClinicasButton.setForeground(new Color(0, 100, 0)); 
+        verHistoriasClinicasButton.setBackground(Color.WHITE); // Fondo blanco
+        verHistoriasClinicasButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
         buttonPanel.add(verHistoriasClinicasButton, gbc);
 
         gbc.gridy = 2;
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Arial", Font.BOLD, 20));
-        regresarButton.setBackground(Color.WHITE); 
-        regresarButton.setForeground(new Color(0, 100, 0)); 
+        regresarButton.setBackground(Color.WHITE); // Fondo blanco
+        regresarButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
         buttonPanel.add(regresarButton, gbc);
 
         regresarButton.addActionListener(new ActionListener() {
