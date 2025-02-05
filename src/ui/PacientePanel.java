@@ -76,6 +76,7 @@ public class PacientePanel extends JPanel {
         regresarButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
         buttonPanel.add(regresarButton, gbc);
 
+        // Listeners para los botones
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
