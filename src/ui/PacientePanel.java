@@ -13,6 +13,7 @@ public class PacientePanel extends JPanel {
         this.paciente = paciente;
         setLayout(new BorderLayout());
 
+        // Panel de bienvenida
         JPanel welcomePanel = new JPanel();
         welcomePanel.setLayout(new BoxLayout(welcomePanel, BoxLayout.Y_AXIS));
         welcomePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
