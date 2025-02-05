@@ -47,66 +47,79 @@ public class RegistrarTurnoPanel extends JPanel {
 
     public RegistrarTurnoPanel(Paciente paciente) {
         this.paciente = paciente;
+        // Frame principal
         setLayout(new BorderLayout());
+
+        // Panel para el encabezado
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setOpaque(false);
+        headerPanel.setOpaque(false); // Transparente para respetar el fondo
 
-        Font font = new Font("Cambria", Font.PLAIN, 20);
-
+        // Panel para el logo y el título, alineado a la izquierda
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         logoPanel.setOpaque(false);
+
+        // Ajustar el tamaño del logo
         ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
                 .getScaledInstance(100, 100, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
 
+        // Configuración del título
         JLabel titleLabel = new JLabel("SmartTurn");
         titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 40));
         titleLabel.setForeground(Color.WHITE);
+
+        // Agregar logo y título al logoPanel
         logoPanel.add(logoLabel);
         logoPanel.add(titleLabel);
+
+        // Agregar logoPanel al headerPanel
         headerPanel.add(logoPanel, BorderLayout.WEST);
+
+        // Agregar headerPanel a la parte superior del frame
         add(headerPanel, BorderLayout.NORTH);
 
+        // Panel principal para el formulario
         JPanel formPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 10, 10, 10); // Aumentar los márgenes
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
+        // Título
         JLabel tituloLabel = new JLabel("Registrar Turno");
-        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 70));
+        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 70)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 0, 30, 0);
+        gbc.insets = new Insets(20, 0, 30, 0); // Aumentar los márgenes
         formPanel.add(tituloLabel, gbc);
 
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = new Insets(10, 10, 10, 10); // Restablecer los márgenes
 
         JLabel especialidadLabel = new JLabel("Especialidad:");
-        especialidadLabel.setFont(font);
+        especialidadLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         formPanel.add(especialidadLabel, gbc);
 
         especialidadComboBox = new JComboBox<>();
-        especialidadComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
+        especialidadComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 1;
         formPanel.add(especialidadComboBox, gbc);
 
         JLabel medicoLabel = new JLabel("Médico:");
-        medicoLabel.setFont(font);
+        medicoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 2;
         formPanel.add(medicoLabel, gbc);
 
         medicoComboBox = new JComboBox<>();
-        medicoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
+        medicoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 1;
         formPanel.add(medicoComboBox, gbc);
 
         JLabel fechaLabel = new JLabel("Fecha:");
-        fechaLabel.setFont(font);
+        fechaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 3;
         formPanel.add(fechaLabel, gbc);
@@ -118,13 +131,13 @@ public class RegistrarTurnoPanel extends JPanel {
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        datePicker.setFont(new Font("Cambria", Font.PLAIN, 14));
+        datePicker.setFont(new Font("Cambria", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
 
         gbc.gridx = 1;
         formPanel.add(datePicker, gbc);
 
         JLabel horaLabel = new JLabel("Hora:");
-        horaLabel.setFont(font);
+        horaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 4;
         formPanel.add(horaLabel, gbc);
