@@ -10,6 +10,7 @@ import DataAccess.DAO.PagoMetodoDAO;
 import DataAccess.DTO.MedicoDTO;
 import DataAccess.DTO.MedicoEspecialidadDTO;
 import DataAccess.DTO.PagoMetodoDTO;
+import Framework.PoliSaludException;
 import ui.utils.DateLabelFormatter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
