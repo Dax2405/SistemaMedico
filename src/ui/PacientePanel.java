@@ -12,8 +12,7 @@ public class PacientePanel extends JPanel {
     public PacientePanel(Paciente paciente) {
         this.paciente = paciente;
         setLayout(new BorderLayout());
-
-        // Panel de bienvenida
+        
         JPanel welcomePanel = new JPanel();
         welcomePanel.setLayout(new BoxLayout(welcomePanel, BoxLayout.Y_AXIS));
         welcomePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -33,7 +32,6 @@ public class PacientePanel extends JPanel {
         codigoUnicoLabel.setForeground(Color.WHITE); // Texto blanco
         codigoUnicoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Cargar la imagen
         ImageIcon logoIcon = new ImageIcon(new ImageIcon(getClass().getResource("/ui/media/SmartTurnLogo.png")).getImage().getScaledInstance(410, 400, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -46,37 +44,35 @@ public class PacientePanel extends JPanel {
         welcomePanel.add(Box.createRigidArea(new Dimension(0, 10)));
         welcomePanel.add(codigoUnicoLabel);
 
-        // Panel de botones
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridBagLayout()); // Usar GridBagLayout para centrar los botones
+        buttonPanel.setLayout(new GridBagLayout()); 
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
+        gbc.insets = new Insets(10, 10, 10, 10); 
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
 
         JButton registrarTurnoButton = new JButton("Registrar Turno");
         registrarTurnoButton.setFont(new Font("Arial", Font.BOLD, 20));
-        registrarTurnoButton.setBackground(Color.WHITE); // Fondo blanco
-        registrarTurnoButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
+        registrarTurnoButton.setBackground(Color.WHITE); 
+        registrarTurnoButton.setForeground(new Color(0, 100, 0)); 
         buttonPanel.add(registrarTurnoButton, gbc);
 
         gbc.gridy = 1;
         JButton verHistoriasClinicasButton = new JButton("Ver Historias Clínicas");
         verHistoriasClinicasButton.setFont(new Font("Arial", Font.BOLD, 20));
-        verHistoriasClinicasButton.setBackground(Color.WHITE); // Fondo blanco
-        verHistoriasClinicasButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
+        verHistoriasClinicasButton.setBackground(Color.WHITE); 
+        verHistoriasClinicasButton.setForeground(new Color(0, 100, 0)); 
         buttonPanel.add(verHistoriasClinicasButton, gbc);
 
         gbc.gridy = 2;
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Arial", Font.BOLD, 20));
-        regresarButton.setBackground(Color.WHITE); // Fondo blanco
-        regresarButton.setForeground(new Color(0, 100, 0)); // Texto verde oscuro
+        regresarButton.setBackground(Color.WHITE); 
+        regresarButton.setForeground(new Color(0, 100, 0)); 
         buttonPanel.add(regresarButton, gbc);
-
-        // Listeners para los botones
+        
         regresarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,8 +93,7 @@ public class PacientePanel extends JPanel {
                 showHistoriasClinicas();
             }
         });
-
-        // Agregar los paneles al panel principal
+        
         add(welcomePanel, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
     }
