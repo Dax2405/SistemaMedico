@@ -71,10 +71,12 @@ public class OTPPanel extends JPanel {
                 }
             }
         });
+
+        // Agregar el panel principal al centro
         add(mainPanel, BorderLayout.CENTER);
     }
-    
-   private void validarCodigoOTP() throws Exception {
+
+    private void validarCodigoOTP() throws Exception {
         String otp = otpField.getText();
         if (otp.isEmpty()) {
             throw new Exception("Codigo OTP no puede estar vacio");
@@ -86,7 +88,7 @@ public class OTPPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Codigo OTP invalido");
         }
     }
-
+    
     private void manejarAutenticacion(Usuario usuario) {
         if (usuario instanceof Paciente) {
             GUI.getInstance().showPacienteScreen((Paciente) usuario);
