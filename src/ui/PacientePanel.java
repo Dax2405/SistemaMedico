@@ -33,6 +33,7 @@ public class PacientePanel extends JPanel {
         codigoUnicoLabel.setForeground(Color.WHITE); // Texto blanco
         codigoUnicoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Cargar la imagen
         ImageIcon logoIcon = new ImageIcon(new ImageIcon(getClass().getResource("/ui/media/SmartTurnLogo.png")).getImage().getScaledInstance(410, 400, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -45,11 +46,12 @@ public class PacientePanel extends JPanel {
         welcomePanel.add(Box.createRigidArea(new Dimension(0, 10)));
         welcomePanel.add(codigoUnicoLabel);
 
+        // Panel de botones
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridBagLayout()); 
+        buttonPanel.setLayout(new GridBagLayout()); // Usar GridBagLayout para centrar los botones
 
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); 
+        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.CENTER;
