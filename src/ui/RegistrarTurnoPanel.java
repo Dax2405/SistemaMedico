@@ -369,6 +369,7 @@ public class RegistrarTurnoPanel extends JPanel {
                     for (PagoMetodoDTO metodo : metodosPago) {
                         metodoPagoComboBox.addItem(metodo.getNombreMetodo());
                     }
+                    // Mostrar el selector de método de pago y el botón de pagar
                     metodoPagoLabel.setVisible(true);
                     metodoPagoComboBox.setVisible(true);
                     pagarButton.setVisible(true);
