@@ -88,7 +88,7 @@ public class OTPPanel extends JPanel {
             JOptionPane.showMessageDialog(this, "Codigo OTP invalido");
         }
     }
-    
+
     private void manejarAutenticacion(Usuario usuario) {
         if (usuario instanceof Paciente) {
             GUI.getInstance().showPacienteScreen((Paciente) usuario);
