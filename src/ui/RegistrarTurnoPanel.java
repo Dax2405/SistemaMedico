@@ -152,50 +152,54 @@ public class RegistrarTurnoPanel extends JPanel {
         formPanel.add(timeSpinner, gbc);
 
         generarTurnoButton = new JButton("Generar Turno");
-        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14));
-        generarTurnoButton.setForeground(Color.WHITE);
+        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14)); // Aumentar el tamaño de la fuente
+        generarTurnoButton.setBackground(Color.WHITE); // Fondo blanco
+        generarTurnoButton.setForeground(new Color(0, 128, 0)); // Texto verde
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
         formPanel.add(generarTurnoButton, gbc);
 
         loadingLabel = new JLabel("Cargando...");
-        loadingLabel.setFont(new Font("Cambria", Font.PLAIN, 14));
+        loadingLabel.setFont(new Font("Cambria", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         loadingLabel.setVisible(false);
         gbc.gridy = 6;
         formPanel.add(loadingLabel, gbc);
 
         metodoPagoLabel = new JLabel("Método de Pago:");
-        metodoPagoLabel.setFont(font);
+        metodoPagoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); // Aumentar el tamaño de la fuente
         gbc.gridx = 0;
         gbc.gridy = 7;
         formPanel.add(metodoPagoLabel, gbc);
 
         metodoPagoComboBox = new JComboBox<>();
-        metodoPagoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
+        metodoPagoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); // Aumentar el tamaño de la fuente
         gbc.gridx = 1;
         formPanel.add(metodoPagoComboBox, gbc);
 
         pagarButton = new JButton("Pagar");
-        pagarButton.setFont(new Font("Cambria", Font.BOLD, 20));
-        pagarButton.setForeground(Color.WHITE);
+        pagarButton.setFont(new Font("Cambria", Font.BOLD, 20)); // Aumentar el tamaño de la fuente
+        pagarButton.setBackground(Color.WHITE); // Fondo blanco
+        pagarButton.setForeground(new Color(0, 128, 0)); // Texto verde
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
         formPanel.add(pagarButton, gbc);
 
+        // Inicialmente ocultar el selector de método de pago y el botón de pagar
         metodoPagoLabel.setVisible(false);
         metodoPagoComboBox.setVisible(false);
         pagarButton.setVisible(false);
 
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        regresarButton.setForeground(Color.WHITE); // Texto verde
+        regresarButton.setBackground(Color.WHITE); // Fondo blanco
+        regresarButton.setForeground(new Color(0, 128, 0)); // Texto verde
         GridBagConstraints gbcRegresar = new GridBagConstraints();
         gbcRegresar.gridx = 0;
         gbcRegresar.gridy = 9;
         gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
-        gbcRegresar.insets = new Insets(10, 10, 10, 10);
+        gbcRegresar.insets = new Insets(10, 10, 10, 10); // Añadir márgenes para mejor visualización
         formPanel.add(regresarButton, gbcRegresar);
 
         regresarButton.addActionListener(new ActionListener() {
@@ -205,6 +209,7 @@ public class RegistrarTurnoPanel extends JPanel {
             }
         });
 
+        // Agregar el panel del formulario al centro del panel principal
         add(formPanel, BorderLayout.CENTER);
 
         cargarEspecialidades();
