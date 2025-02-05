@@ -13,8 +13,10 @@ public class OTPPanel extends JPanel {
     private JTextField otpField;
 
     public OTPPanel() {
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout()); // Usamos BorderLayout para organizar los componentes
+
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
         ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
                 .getScaledInstance(150, 140, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
@@ -25,6 +27,7 @@ public class OTPPanel extends JPanel {
 
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
+
         add(headerPanel, BorderLayout.NORTH);
 
         JPanel mainPanel = new JPanel(new GridBagLayout());
@@ -35,6 +38,7 @@ public class OTPPanel extends JPanel {
         otpLabel.setForeground(Color.WHITE);
         otpLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
         otpLabel.setForeground(Color.WHITE);
+
         gbc.gridx = 0;
         gbc.gridy = 0;
         mainPanel.add(otpLabel, gbc);
@@ -62,6 +66,7 @@ public class OTPPanel extends JPanel {
                 }
             }
         });
+
         add(mainPanel, BorderLayout.CENTER);
     }
 

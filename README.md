@@ -1,6 +1,6 @@
 ## SmartTurn - EPN 
 
-SmartTurn es un proyectoque está
+SmartTurn es un proyecto que está
 diseñado utilizando la arquitectura n-tier, que separa la aplicación en capas lógicas para mejorar la escalabilidad,
 mantenibilidad y reutilización del código.
 
