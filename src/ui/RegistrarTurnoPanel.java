@@ -10,7 +10,6 @@ import DataAccess.DAO.PagoMetodoDAO;
 import DataAccess.DTO.MedicoDTO;
 import DataAccess.DTO.MedicoEspecialidadDTO;
 import DataAccess.DTO.PagoMetodoDTO;
-import Framework.PoliSaludException;
 import ui.utils.DateLabelFormatter;
 
 import org.jdatepicker.impl.JDatePanelImpl;
@@ -49,7 +48,9 @@ public class RegistrarTurnoPanel extends JPanel {
         this.paciente = paciente;
         setLayout(new BorderLayout());
         JPanel headerPanel = new JPanel(new BorderLayout());
-        headerPanel.setOpaque(false); 
+        headerPanel.setOpaque(false);
+
+        Font font = new Font("Cambria", Font.PLAIN, 20);
 
         JPanel logoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
         logoPanel.setOpaque(false);
@@ -67,44 +68,44 @@ public class RegistrarTurnoPanel extends JPanel {
 
         JPanel formPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); 
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel tituloLabel = new JLabel("Registrar Turno");
-        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 70)); 
+        tituloLabel.setFont(new Font("Segoe UI", Font.BOLD, 70));
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.gridwidth = 2;
-        gbc.insets = new Insets(20, 0, 30, 0); 
+        gbc.insets = new Insets(20, 0, 30, 0);
         formPanel.add(tituloLabel, gbc);
 
-        gbc.insets = new Insets(10, 10, 10, 10); 
+        gbc.insets = new Insets(10, 10, 10, 10);
 
         JLabel especialidadLabel = new JLabel("Especialidad:");
-        especialidadLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
+        especialidadLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
         formPanel.add(especialidadLabel, gbc);
 
         especialidadComboBox = new JComboBox<>();
-        especialidadComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
+        especialidadComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
         gbc.gridx = 1;
         formPanel.add(especialidadComboBox, gbc);
 
         JLabel medicoLabel = new JLabel("Médico:");
-        medicoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
+        medicoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 2;
         formPanel.add(medicoLabel, gbc);
 
         medicoComboBox = new JComboBox<>();
-        medicoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
+        medicoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
         gbc.gridx = 1;
         formPanel.add(medicoComboBox, gbc);
 
         JLabel fechaLabel = new JLabel("Fecha:");
-        fechaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
+        fechaLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 3;
         formPanel.add(fechaLabel, gbc);
@@ -116,13 +117,13 @@ public class RegistrarTurnoPanel extends JPanel {
         p.put("text.year", "Year");
         JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
         datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-        datePicker.setFont(new Font("Cambria", Font.PLAIN, 14)); 
+        datePicker.setFont(new Font("Cambria", Font.PLAIN, 14));
 
         gbc.gridx = 1;
         formPanel.add(datePicker, gbc);
 
         JLabel horaLabel = new JLabel("Hora:");
-        horaLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
+        horaLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 4;
         formPanel.add(horaLabel, gbc);
@@ -137,35 +138,33 @@ public class RegistrarTurnoPanel extends JPanel {
         formPanel.add(timeSpinner, gbc);
 
         generarTurnoButton = new JButton("Generar Turno");
-        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14)); 
-        generarTurnoButton.setBackground(Color.WHITE); // Fondo blanco
-        generarTurnoButton.setForeground(new Color(0, 128, 0)); // Texto verde
+        generarTurnoButton.setFont(new Font("Arial", Font.BOLD, 14));
+        generarTurnoButton.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
         formPanel.add(generarTurnoButton, gbc);
 
         loadingLabel = new JLabel("Cargando...");
-        loadingLabel.setFont(new Font("Cambria", Font.PLAIN, 14)); 
+        loadingLabel.setFont(new Font("Cambria", Font.PLAIN, 14));
         loadingLabel.setVisible(false);
         gbc.gridy = 6;
         formPanel.add(loadingLabel, gbc);
 
         metodoPagoLabel = new JLabel("Método de Pago:");
-        metodoPagoLabel.setFont(new Font("Cambria", Font.PLAIN, 20)); 
+        metodoPagoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 7;
         formPanel.add(metodoPagoLabel, gbc);
 
         metodoPagoComboBox = new JComboBox<>();
-        metodoPagoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14)); 
+        metodoPagoComboBox.setFont(new Font("Cambria", Font.PLAIN, 14));
         gbc.gridx = 1;
         formPanel.add(metodoPagoComboBox, gbc);
 
         pagarButton = new JButton("Pagar");
-        pagarButton.setFont(new Font("Cambria", Font.BOLD, 20)); 
-        pagarButton.setBackground(Color.WHITE); // Fondo blanco
-        pagarButton.setForeground(new Color(0, 128, 0)); // Texto verde
+        pagarButton.setFont(new Font("Cambria", Font.BOLD, 20));
+        pagarButton.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 8;
         gbc.gridwidth = 2;
@@ -177,13 +176,12 @@ public class RegistrarTurnoPanel extends JPanel {
 
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Arial", Font.PLAIN, 15));
-        regresarButton.setBackground(Color.WHITE); // Fondo blanco
-        regresarButton.setForeground(new Color(0, 128, 0)); // Texto verde
+        regresarButton.setForeground(Color.WHITE); // Texto verde
         GridBagConstraints gbcRegresar = new GridBagConstraints();
         gbcRegresar.gridx = 0;
         gbcRegresar.gridy = 9;
         gbcRegresar.anchor = GridBagConstraints.NORTHWEST;
-        gbcRegresar.insets = new Insets(10, 10, 10, 10); 
+        gbcRegresar.insets = new Insets(10, 10, 10, 10);
         formPanel.add(regresarButton, gbcRegresar);
 
         regresarButton.addActionListener(new ActionListener() {

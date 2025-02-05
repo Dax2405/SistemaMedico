@@ -37,17 +37,20 @@ public class RegistrarPanel extends JPanel {
         setLayout(new BorderLayout());
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-        headerPanel.setOpaque(false); 
+        headerPanel.setOpaque(false);
+
+        Font font = new Font("Cambria", Font.PLAIN, 20);
+        Font font2 = new Font("Arial", Font.PLAIN, 15);
 
         ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
                 .getScaledInstance(100, 100, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
-        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel titleLabel = new JLabel("SmartTurn");
         titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 40));
-        titleLabel.setForeground(Color.WHITE); 
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT); 
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel tipoUsuarioPanel = new JPanel();
         tipoUsuarioPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
@@ -55,7 +58,7 @@ public class RegistrarPanel extends JPanel {
         tipoUsuarioComboBox = new JComboBox<>(new String[] { "Paciente", "Medico" });
         tipoUsuarioPanel.add(tipoUsuarioLabel);
         tipoUsuarioPanel.add(tipoUsuarioComboBox);
-        headerPanel.add(Box.createVerticalStrut(10)); 
+        headerPanel.add(Box.createVerticalStrut(10));
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
         headerPanel.add(Box.createVerticalStrut(10));
@@ -69,7 +72,7 @@ public class RegistrarPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel nombreLabel = new JLabel("Nombre:");
-        nombreLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        nombreLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 0;
         camposPanel.add(nombreLabel, gbc);
@@ -79,7 +82,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(nombreField, gbc);
 
         JLabel apellidoLabel = new JLabel("Apellido:");
-        apellidoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        apellidoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 1;
         camposPanel.add(apellidoLabel, gbc);
@@ -89,7 +92,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(apellidoField, gbc);
 
         JLabel telefonoLabel = new JLabel("Teléfono:");
-        telefonoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        telefonoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 2;
         camposPanel.add(telefonoLabel, gbc);
@@ -99,7 +102,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(telefonoField, gbc);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        emailLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 3;
         camposPanel.add(emailLabel, gbc);
@@ -109,7 +112,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(emailField, gbc);
 
         JLabel contraseñaLabel = new JLabel("Contraseña:");
-        contraseñaLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        contraseñaLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 4;
         camposPanel.add(contraseñaLabel, gbc);
@@ -119,7 +122,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(contraseñaField, gbc);
 
         JLabel codigoUnicoLabel = new JLabel("Código Único:");
-        codigoUnicoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        codigoUnicoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 5;
         camposPanel.add(codigoUnicoLabel, gbc);
@@ -129,7 +132,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(codigoUnicoField, gbc);
 
         JLabel fechaNacimientoLabel = new JLabel("Fecha de Nacimiento:");
-        fechaNacimientoLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        fechaNacimientoLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 6;
         camposPanel.add(fechaNacimientoLabel, gbc);
@@ -139,7 +142,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(fechaNacimientoField, gbc);
 
         JLabel direccionLabel = new JLabel("Dirección:");
-        direccionLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        direccionLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 7;
         camposPanel.add(direccionLabel, gbc);
@@ -149,7 +152,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(direccionField, gbc);
 
         JLabel especialidadLabel = new JLabel("Especialidad:");
-        especialidadLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        especialidadLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 8;
         camposPanel.add(especialidadLabel, gbc);
@@ -159,7 +162,7 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(especialidadComboBox, gbc);
 
         JLabel rolLabel = new JLabel("Rol:");
-        rolLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        rolLabel.setFont(font);
         gbc.gridx = 0;
         gbc.gridy = 9;
         camposPanel.add(rolLabel, gbc);
@@ -169,9 +172,8 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(rolComboBox, gbc);
 
         registrarButton = new JButton("Registrar");
-        registrarButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        registrarButton.setBackground(Color.WHITE); // Fondo blanco
-        registrarButton.setForeground(new Color(0, 128, 0)); // Texto verde
+        registrarButton.setFont(font2);
+        registrarButton.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 10;
         gbc.gridwidth = 2;
@@ -182,9 +184,8 @@ public class RegistrarPanel extends JPanel {
         camposPanel.add(loadingLabel, gbc);
 
         regresarButton = new JButton("Regresar");
-        regresarButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        regresarButton.setBackground(Color.WHITE); 
-        regresarButton.setForeground(new Color(0, 128, 0)); 
+        regresarButton.setFont(font2);
+        regresarButton.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 12;
         gbc.gridwidth = 2;

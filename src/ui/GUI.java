@@ -1,7 +1,9 @@
 package ui;
 
 import javax.swing.*;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanIJTheme;
+
+import com.formdev.flatlaf.FlatLightLaf;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatMaterialDeepOceanContrastIJTheme;
 import BusinessLogic.Entities.Usuario.Medico;
 import BusinessLogic.Entities.Usuario.Paciente;
 import java.awt.*;
@@ -13,10 +15,10 @@ public class GUI {
     private CardLayout cardLayout;
 
     private GUI() {
-        FlatMaterialDeepOceanIJTheme.setup();
-        FlatMaterialDeepOceanIJTheme.supportsNativeWindowDecorations();
+        FlatLightLaf.setup();
+        FlatLightLaf.supportsNativeWindowDecorations();
         try {
-            UIManager.setLookAndFeel(new FlatMaterialDeepOceanIJTheme());
+            UIManager.setLookAndFeel(new FlatMaterialDeepOceanContrastIJTheme());
         } catch (Exception e) {
             System.out.println("Error setting theme");
         }
@@ -30,7 +32,7 @@ public class GUI {
         frame.add(mainPanel, BorderLayout.CENTER);
 
         showLoginScreen();
-        frame.setVisible(true); 
+        frame.setVisible(true);
     }
 
     public static GUI getInstance() {
@@ -50,16 +52,16 @@ public class GUI {
     private void estilizarComponentes(JPanel panel) {
         for (Component c : panel.getComponents()) {
             if (c instanceof JButton) {
-                c.setBackground(Color.WHITE); 
-                c.setForeground(new Color(0, 100, 0)); 
-                ((JButton) c).setFont(new Font("Segoe UI", Font.BOLD, 14)); 
+                c.setBackground(Color.WHITE);
+                c.setForeground(new Color(0, 100, 0));
+                ((JButton) c).setFont(new Font("Segoe UI", Font.BOLD, 14));
             } else if (c instanceof JLabel) {
-                c.setForeground(Color.WHITE); 
-                ((JLabel) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
+                c.setForeground(Color.WHITE);
+                ((JLabel) c).setFont(new Font("Segoe UI", Font.PLAIN, 14));
             } else if (c instanceof JTextField || c instanceof JPasswordField) {
                 c.setBackground(new Color(20, 40, 70));
-                c.setForeground(Color.WHITE); 
-                ((JTextField) c).setFont(new Font("Segoe UI", Font.PLAIN, 14)); 
+                c.setForeground(Color.WHITE);
+                ((JTextField) c).setFont(new Font("Segoe UI", Font.PLAIN, 14));
             }
         }
     }

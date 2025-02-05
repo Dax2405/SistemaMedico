@@ -13,14 +13,15 @@ public class OTPPanel extends JPanel {
     private JTextField otpField;
 
     public OTPPanel() {
-        setLayout(new BorderLayout()); 
+        setLayout(new BorderLayout());
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage().getScaledInstance(150, 140, Image.SCALE_SMOOTH));
+        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
+                .getScaledInstance(150, 140, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
 
         JLabel titleLabel = new JLabel("SmartTurn");
-        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); 
-        titleLabel.setForeground(Color.WHITE); 
+        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50));
+        titleLabel.setForeground(Color.WHITE);
 
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
@@ -31,22 +32,21 @@ public class OTPPanel extends JPanel {
         gbc.insets = new Insets(5, 5, 5, 5);
 
         JLabel otpLabel = new JLabel("Codigo OTP:");
-        otpLabel.setForeground(Color.WHITE); 
-        otpLabel.setFont(new Font("Cambria", Font.PLAIN, 30));
-        otpLabel.setForeground(Color.WHITE); 
+        otpLabel.setForeground(Color.WHITE);
+        otpLabel.setFont(new Font("Cambria", Font.PLAIN, 20));
+        otpLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
         mainPanel.add(otpLabel, gbc);
 
         otpField = new JTextField(20);
-        otpField.setFont(new Font("Cambria", Font.PLAIN, 25));
+        otpField.setFont(new Font("Cambria", Font.PLAIN, 20));
         gbc.gridx = 1;
         mainPanel.add(otpField, gbc);
 
         JButton loginButton = new JButton("Validar Codigo OTP");
-        loginButton.setBackground(Color.WHITE); // Fondo blanco
-        loginButton.setForeground(new Color(0, 128, 0)); // Letras verdes
-        loginButton.setFont(new Font("Arial", Font.BOLD, 25));
+        loginButton.setForeground(Color.WHITE);
+        loginButton.setFont(new Font("Arial", Font.BOLD, 20));
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 2;
@@ -64,8 +64,8 @@ public class OTPPanel extends JPanel {
         });
         add(mainPanel, BorderLayout.CENTER);
     }
-    
-   private void validarCodigoOTP() throws Exception {
+
+    private void validarCodigoOTP() throws Exception {
         String otp = otpField.getText();
         if (otp.isEmpty()) {
             throw new Exception("Codigo OTP no puede estar vacio");

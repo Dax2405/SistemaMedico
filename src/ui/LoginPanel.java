@@ -20,19 +20,21 @@ public class LoginPanel extends JPanel {
 
         JPanel headerPanel = new JPanel();
         headerPanel.setLayout(new BoxLayout(headerPanel, BoxLayout.Y_AXIS));
-        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0)); // Margen superior e inferior
+        headerPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
 
-        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage().getScaledInstance(280, 250, Image.SCALE_SMOOTH));
+        ImageIcon logoIcon = new ImageIcon(new ImageIcon("src/ui/media/SmartTurnLogo.png").getImage()
+                .getScaledInstance(280, 250, Image.SCALE_SMOOTH));
         JLabel logoLabel = new JLabel(logoIcon);
         logoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel titleLabel = new JLabel("SmartTurn");
-        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); // Fuente más elegante
-        titleLabel.setForeground(Color.WHITE); // Título en blanco
+        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50));
+        titleLabel.setForeground(Color.WHITE);
+
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         headerPanel.add(logoLabel);
-        headerPanel.add(Box.createVerticalStrut(5)); // Espacio entre el logo y el título
+        headerPanel.add(Box.createVerticalStrut(5));
         headerPanel.add(titleLabel);
         add(headerPanel, BorderLayout.NORTH);
 
@@ -40,70 +42,63 @@ public class LoginPanel extends JPanel {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
 
-        Font font = new Font("Cambria", Font.PLAIN, 25);
-        Font font2 = new Font("Arial", Font.PLAIN, 20);
+        Font font = new Font("Cambria", Font.PLAIN, 17);
+        Font font2 = new Font("Arial", Font.PLAIN, 15);
 
         JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setFont(font);
-        emailLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.LINE_END;
+        emailLabel.setFont(font2);
         loginFormPanel.add(emailLabel, gbc);
 
         emailField = new JTextField(20);
-        emailField.setFont(font);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.LINE_START;
         loginFormPanel.add(emailField, gbc);
 
         JLabel passwordLabel = new JLabel("Contraseña:");
-        passwordLabel.setFont(font);
-        passwordLabel.setForeground(Color.WHITE);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.LINE_END;
+        passwordLabel.setFont(font2);
         loginFormPanel.add(passwordLabel, gbc);
 
         passwordField = new JPasswordField(20);
-        passwordField.setFont(font);
         gbc.gridx = 1;
         gbc.anchor = GridBagConstraints.LINE_START;
         loginFormPanel.add(passwordField, gbc);
 
         JButton loginButton = new JButton("Iniciar Sesión");
-        loginButton.setFont(font2);
-        loginButton.setBackground(Color.WHITE);
-        loginButton.setForeground(new Color(0, 100, 0));
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
+        loginButton.setFont(font);
+        loginButton.setForeground(Color.WHITE);
         loginFormPanel.add(loginButton, gbc);
 
         JButton facialButton = new JButton("Autenticación Facial");
-        facialButton.setFont(font2);
-        facialButton.setBackground(Color.WHITE);
-        facialButton.setForeground(new Color(0, 100, 0));
+        facialButton.setFont(font);
+        facialButton.setForeground(Color.WHITE);
+
         gbc.gridy = 3;
         loginFormPanel.add(facialButton, gbc);
 
         JButton otpButton = new JButton("Autenticación OTP");
-        otpButton.setFont(font2);
-        otpButton.setBackground(Color.WHITE);
-        otpButton.setForeground(new Color(0, 100, 0));
+        otpButton.setFont(font);
+        otpButton.setForeground(Color.WHITE);
+
         gbc.gridy = 4;
         loginFormPanel.add(otpButton, gbc);
 
         JButton registrarButton = new JButton("Registrar Usuario");
-        registrarButton.setFont(font2);
-        registrarButton.setBackground(Color.WHITE);
-        registrarButton.setForeground(new Color(0, 100, 0));
+        registrarButton.setFont(font);
+        registrarButton.setForeground(Color.WHITE);
         gbc.gridy = 5;
         loginFormPanel.add(registrarButton, gbc);
 
         loadingLabel = new JLabel("Cargando...");
-        loadingLabel.setForeground(Color.WHITE);
         loadingLabel.setVisible(false);
         gbc.gridy = 6;
         loginFormPanel.add(loadingLabel, gbc);
@@ -196,7 +191,10 @@ public class LoginPanel extends JPanel {
         }
         if (AutenticacionOTP.autenticar(email)) {
             GUI.getInstance().showOTPPanel();
+        } else {
+            throw new Exception("El correo ingresado no es valido");
         }
+        ocultarCargando();
     }
 
     private void manejarAutenticacion(Usuario usuario) {
