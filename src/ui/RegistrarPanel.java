@@ -308,10 +308,11 @@ public class RegistrarPanel extends JPanel {
                         || contraseña.isEmpty()) {
                     throw new Exception("Todos los campos son obligatorios.");
                 }
-                if (!validarContrasena(contraseña)) {
-                    throw new Exception(
-                            "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un caracter especial.");
-                }
+                // if (validarContrasena(contraseña)) {
+                // throw new Exception(
+                // "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una
+                // letra minúscula, un número y un caracter especial.");
+                // }
                 try {
                     if (tipoUsuario.equals("Paciente")) {
                         String codigoUnico = codigoUnicoField.getText();
