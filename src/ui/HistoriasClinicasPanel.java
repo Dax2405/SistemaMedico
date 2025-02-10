@@ -24,8 +24,8 @@ public class HistoriasClinicasPanel extends JPanel {
         JLabel logoLabel = new JLabel(logoIcon);
 
         JLabel titleLabel = new JLabel("SmartTurn");
-        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); // Tamaño de fuente más pequeño
-        titleLabel.setForeground(Color.WHITE); // Texto en blanco
+        titleLabel.setFont(new Font("Script MT Bold", Font.BOLD, 50)); 
+        titleLabel.setForeground(Color.WHITE); 
 
         headerPanel.add(logoLabel);
         headerPanel.add(titleLabel);
