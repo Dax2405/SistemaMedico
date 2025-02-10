@@ -34,7 +34,7 @@ package "BusinessLogic.Entities.Usuario" {
     }
 }
 
-package "BusinessLogic.Entities.Turno" {
+package "BusinessLogic.Entities.TurnoP" {
     class Turno {
         - Integer id
         - Paciente paciente
@@ -53,10 +53,11 @@ package "BusinessLogic.Entities.Turno" {
         - String tratamiento
         - Medico medico
         + HistoriaClinica(String diagnostico, String tratamiento, Medico medico)
+        + {get; set;}
     }
 }
 
-package "BusinessLogic.Entities.RecetaMedica" {
+package "BusinessLogic.Entities.RecetaMedicaP" {
     class Medicamento {
         - Integer id
         - String nombreComercial
@@ -65,12 +66,20 @@ package "BusinessLogic.Entities.RecetaMedica" {
         + Medicamento(Integer id, String nombreComercial, String nombreQuimico, Float concentracion)
         + {get; set;}
     }
+
+    class RecetaMedica {
+        - Integer id
+        - String indicaciones
+        - Medicamento medicamento
+        + RecetaMedica(Integer id, String indicaciones, Medicamento medicamento)
+        + {get; set;}
+    }
 }
 
 package "BusinessLogic.Entities.Autenticacion" {
     class Autenticacion {
-        + static Paciente registrarPaciente(String nombre, String apellido, String codigoUnico, String telefono, String fechaNacimiento, String direccion, String email, String contraseña)
-        + static Usuario registrarUsuario(String nombre, String apellido, String telefono, Integer idMedicoEspecialidad, Integer idMedicoRol, String email, String contraseña)
+        + static Paciente registrarPaciente(String nombre, String apellido, String codigoUnico, String telefono, String fechaNacimiento, String direccion, String email, String contrasena)
+        + static Usuario registrarUsuario(String nombre, String apellido, String telefono, Integer idMedicoEspecialidad, Integer idMedicoRol, String email, String contrasena)
     }
 
     class AutenticacionCredenciales extends Autenticacion {
@@ -78,7 +87,9 @@ package "BusinessLogic.Entities.Autenticacion" {
     }
 
     class AutenticacionFacial extends Autenticacion {
-        + static Usuario autenticar()
+        + static void captureAndSavePhoto() throws IOException
+        + static Integer autenticarFacialmente() throws IOException
+        + static Boolean registrarFacialmente(Integer idUsuario) throws IOException
     }
 
     class AutenticacionOTP extends Autenticacion {
@@ -87,6 +98,19 @@ package "BusinessLogic.Entities.Autenticacion" {
         + static Usuario obtenerUsuario()
     }
 }
+
+package "BusinessLogic.Entities.Utils" {
+    class EmailUtils {
+        + static void enviarEmail(String to, String subject, String body)
+    }
+}
+
+package "Framework" {
+    class PoliSaludException {
+        + PoliSaludException(String message, String className, String methodName)
+    }
+}
+
 
 package "BusinessLogic.Entities.Utils" {
     class AutenticacionFacialUtils {
@@ -103,37 +127,17 @@ package "BusinessLogic.Entities.Utils" {
     }
 }
 
-
-
-
-package "BusinessLogic" {
-    class BLFactory<T> {
-        + BLFactory(Supplier<T> supplier)
-        + add(T entity)
-        + getAll()
-        + getBy(Integer id)
-    }
-}
-
-package "Framework" {
-    class PoliSaludException {
-        + PoliSaludException(String message, String className, String methodName)
-    }
-}
-
-
-
-Usuario <|-- Medico
-Usuario <|-- Paciente
-Turno --> Paciente
-Turno --> Medico
-Turno --> HistoriaClinica
-HistoriaClinica --> Medico
-Paciente --> HistoriaClinica
-Medico --> Medicamento
-Medico --> RecetaMedica
-Medico --> Turno
-Paciente --> Turno
-
+Turno --> Paciente : usa
+Turno --> Medico : usa
+Turno --> HistoriaClinica : usa
+HistoriaClinica --> Medico : usa
+Paciente --> HistoriaClinica : usa
+Medico --> Medicamento : usa
+Medico --> RecetaMedica : usa
+Medico --> Turno : usa
+Paciente --> Turno : usa
+AutenticacionOTP --> AutenticacionOTPUtils : usa
+AutenticacionFacial --> AutenticacionFacialUtils : usa
+RecetaMedica --> Medicamento: usa
 
 @enduml
