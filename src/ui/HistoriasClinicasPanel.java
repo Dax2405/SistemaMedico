@@ -36,9 +36,9 @@ public class HistoriasClinicasPanel extends JPanel {
         table = new JTable(tableModel);
         table.setFont(new Font("Cambria", Font.PLAIN, 25));
         table.setRowHeight(30);
-        table.setForeground(Color.WHITE); // Letras blancas
-        table.setSelectionBackground(new Color(77, 153, 77)); // Fondo helecho para selección
-        table.setSelectionForeground(Color.WHITE); // Letras blancas en selección
+        table.setForeground(Color.WHITE); 
+        table.setSelectionBackground(new Color(77, 153, 77)); 
+        table.setSelectionForeground(Color.WHITE); 
 
         table.setShowGrid(false);
         table.setIntercellSpacing(new Dimension(0, 0));
