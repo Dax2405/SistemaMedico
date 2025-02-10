@@ -13,7 +13,7 @@ public class OTPPanel extends JPanel {
     private JTextField otpField;
 
     public OTPPanel() {
-        setLayout(new BorderLayout()); // Usamos BorderLayout para organizar los componentes
+        setLayout(new BorderLayout()); 
 
         JPanel headerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
