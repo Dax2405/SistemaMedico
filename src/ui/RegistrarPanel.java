@@ -313,6 +313,9 @@ public class RegistrarPanel extends JPanel {
                 // "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una
                 // letra minúscula, un número y un caracter especial.");
                 // }
+                if (!validarCorreo(email)) {
+                    throw new Exception("El correo ingresado no es valido");
+                }
                 try {
                     if (tipoUsuario.equals("Paciente")) {
                         String codigoUnico = codigoUnicoField.getText();
@@ -360,5 +363,12 @@ public class RegistrarPanel extends JPanel {
 
     private void ocultarCargando() {
         loadingLabel.setVisible(false);
+    }
+
+    public boolean validarCorreo(String correo) {
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(correo);
+        return matcher.matches();
     }
 }
