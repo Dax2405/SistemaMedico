@@ -42,21 +42,21 @@ public class MedicoPanel extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Cargar el logo y escalarlo
+        
         ImageIcon logoIcon = new ImageIcon(getClass().getResource("/ui/media/SmartTurnLogo.png"));
-        Image logoImage = logoIcon.getImage().getScaledInstance(300, -1, Image.SCALE_SMOOTH); // Escalar a 200px de
-                                                                                              // ancho
+        Image logoImage = logoIcon.getImage().getScaledInstance(300, -1, Image.SCALE_SMOOTH);   
+                                                                                              
         logoIcon = new ImageIcon(logoImage);
         JLabel logoLabel = new JLabel(logoIcon);
 
-        // Configurar GridBagConstraints para el logo
+        
         gbc.gridx = 0;
-        gbc.gridy = 0; // Fila 0 para el logo
-        gbc.gridwidth = 3; // Ocupa 3 columnas
-        gbc.anchor = GridBagConstraints.CENTER; // Centrar el logo
+        gbc.gridy = 0; 
+        gbc.gridwidth = 3; 
+        gbc.anchor = GridBagConstraints.CENTER; 
         add(logoLabel, gbc);
 
-        // Panel de selección de paciente y turno
+        
         JPanel seleccionPanel = new JPanel(new GridBagLayout());
         GridBagConstraints seleccionGbc = new GridBagConstraints();
         seleccionGbc.insets = new Insets(5, 5, 5, 5);
@@ -84,18 +84,17 @@ public class MedicoPanel extends JPanel {
 
         seleccionarButton = new JButton("Seleccionar");
         seleccionarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        seleccionarButton.setForeground(Color.WHITE); // Letras verdes
+        seleccionarButton.setForeground(Color.WHITE); 
         seleccionGbc.gridx = 0;
         seleccionGbc.gridy = 2;
         seleccionGbc.gridwidth = 2;
         seleccionPanel.add(seleccionarButton, seleccionGbc);
 
         gbc.gridx = 0;
-        gbc.gridy = 2; // Fila 2 para el panel de selección (debajo del título)
-        gbc.gridwidth = 1; // Restablecer gridwidth
+        gbc.gridy = 2; 
+        gbc.gridwidth = 1; 
         add(seleccionPanel, gbc);
 
-        // Panel de creación de historia clínica
         JPanel historiaClinicaPanel = new JPanel(new GridBagLayout());
         GridBagConstraints historiaGbc = new GridBagConstraints();
         historiaGbc.insets = new Insets(5, 5, 5, 5);
@@ -123,17 +122,17 @@ public class MedicoPanel extends JPanel {
 
         crearHistoriaClinicaButton = new JButton("Crear Historia Clínica");
         crearHistoriaClinicaButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        crearHistoriaClinicaButton.setForeground(Color.WHITE); // Letras verdes
+        crearHistoriaClinicaButton.setForeground(Color.WHITE); 
         historiaGbc.gridx = 0;
         historiaGbc.gridy = 2;
         historiaGbc.gridwidth = 2;
         historiaClinicaPanel.add(crearHistoriaClinicaButton, historiaGbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2; // Fila 2 para el panel de historia clínica (debajo del título)
+        gbc.gridy = 2; 
         add(historiaClinicaPanel, gbc);
 
-        // Panel de receta de medicamentos
+    
         JPanel recetaPanel = new JPanel(new GridBagLayout());
         GridBagConstraints recetaGbc = new GridBagConstraints();
         recetaGbc.insets = new Insets(5, 5, 5, 5);
@@ -161,29 +160,29 @@ public class MedicoPanel extends JPanel {
 
         recetarButton = new JButton("Recetar");
         recetarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        recetarButton.setForeground(Color.WHITE); // Letras verdes
+        recetarButton.setForeground(Color.WHITE); 
         recetaGbc.gridx = 0;
         recetaGbc.gridy = 2;
         recetaGbc.gridwidth = 2;
         recetaPanel.add(recetarButton, recetaGbc);
 
         gbc.gridx = 2;
-        gbc.gridy = 2; // Fila 2 para el panel de receta (debajo del título)
+        gbc.gridy = 2; 
         add(recetaPanel, gbc);
 
-        // Loading label
+        
         loadingLabel = new JLabel("Cargando...");
         loadingLabel.setVisible(false);
         gbc.gridx = 1;
-        gbc.gridy = 3; // Fila 3 para el loading label
+        gbc.gridy = 3; 
         add(loadingLabel, gbc);
 
-        // Botón de regresar
+    
         JButton regresarButton = new JButton("Regresar");
         regresarButton.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-        regresarButton.setForeground(Color.WHITE); // Letras verdes
-        regresarButton.setPreferredSize(seleccionarButton.getPreferredSize()); // Igualar el tamaño al botón
-                                                                               // "Seleccionar"
+        regresarButton.setForeground(Color.WHITE); 
+        regresarButton.setPreferredSize(seleccionarButton.getPreferredSize()); 
+                                                                               
 
         GridBagConstraints gbcRegresar = new GridBagConstraints();
         gbcRegresar.gridx = 0;
@@ -194,7 +193,7 @@ public class MedicoPanel extends JPanel {
         panelBoton.add(regresarButton);
 
         gbc.gridx = 0;
-        gbc.gridy = 4; // Fila 4 para el botón de regresar
+        gbc.gridy = 4; 
         gbc.gridwidth = 3;
         gbc.anchor = GridBagConstraints.WEST;
         add(panelBoton, gbc);

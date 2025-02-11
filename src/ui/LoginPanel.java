@@ -43,7 +43,7 @@ public class LoginPanel extends JPanel {
 
         JPanel loginFormPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10); // Espaciado entre componentes
+        gbc.insets = new Insets(10, 10, 10, 10); 
 
         Font font = new Font("Cambria", Font.PLAIN, 17);
         Font font2 = new Font("Arial", Font.PLAIN, 15);

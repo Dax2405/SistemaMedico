@@ -27,12 +27,12 @@ public class PacientePanel extends JPanel {
 
         JLabel nameLabel = new JLabel("Nombre: " + paciente.getNombre() + " " + paciente.getApellido());
         nameLabel.setFont(font2);
-        nameLabel.setForeground(Color.WHITE); // Texto blanco
+        nameLabel.setForeground(Color.WHITE); 
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel codigoUnicoLabel = new JLabel("Cédula: " + paciente.getCodigoUnico());
         codigoUnicoLabel.setFont(font2);
-        codigoUnicoLabel.setForeground(Color.WHITE); // Texto blanco
+        codigoUnicoLabel.setForeground(Color.WHITE); 
         codigoUnicoLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         ImageIcon logoIcon = new ImageIcon(new ImageIcon(getClass().getResource("/ui/media/SmartTurnLogo.png"))
