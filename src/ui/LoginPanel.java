@@ -8,6 +8,9 @@ import BusinessLogic.Entities.Usuario.Paciente;
 import BusinessLogic.Entities.Usuario.Usuario;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.swing.*;
 
 public class LoginPanel extends JPanel {
@@ -174,10 +177,17 @@ public class LoginPanel extends JPanel {
     private Usuario autenticarCredenciales() throws Exception {
         String email = emailField.getText();
         String password = new String(passwordField.getPassword());
+        if (!validarCorreo(email)) {
+            throw new Exception("El email no es valido");
+        }
         if (email.isEmpty() || password.isEmpty()) {
             throw new Exception("Por favor, ingrese su email y contraseña.");
         }
-        return AutenticacionCredenciales.autenticar(email, password);
+        try {
+            return AutenticacionCredenciales.autenticar(email, password);
+        } catch (Exception e) {
+            throw new Exception("Credenciales incorrectas");
+        }
     }
 
     private Usuario autenticarFacial() throws Exception {
@@ -186,6 +196,9 @@ public class LoginPanel extends JPanel {
 
     private void autenticarOTP() throws Exception {
         String email = emailField.getText();
+        if (!validarCorreo(email)) {
+            throw new Exception("El email no es valido");
+        }
         if (email.isEmpty()) {
             throw new Exception("Por favor, ingrese su email.");
         }
@@ -203,5 +216,12 @@ public class LoginPanel extends JPanel {
         } else if (usuario instanceof Medico) {
             GUI.getInstance().showMedicoScreen((Medico) usuario);
         }
+    }
+
+    public boolean validarCorreo(String correo) {
+        String regex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(correo);
+        return matcher.matches();
     }
 }
